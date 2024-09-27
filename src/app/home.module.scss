@@ -1,0 +1,27 @@
+@use "../styles//variables" as v;
+.home {
+  height: 100dvh;
+  width: 100dvw;
+  position: relative;
+  overflow: hidden;
+  background-color: v.$backgroundColor;
+
+  .videoContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100dvw;
+    height: 100dvh;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+
+    .backgroundVideo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 248.888vh; /* 100 * (16/9) */
+      height: 140dvh;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

@@ -1,36 +1,20 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Basic Idea
 
-## Getting Started
+A PC parts e-commerce website where users can browse, compare, and purchase computer components. The platform will offer a wide range of products, including CPUs, GPUs, motherboards, RAM, storage devices, and peripherals. Users can also customize their builds by selecting compatible parts, with the option to filter based on brands, specifications, and prices.
 
-First, run the development server:
+## Tech Used
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Next.js** for client and server-side rendering, routing, and creating dynamic e-commerce pages.
+- **MongoDB & Mongoose** for managing product data and user information.
+- **SCSS** for styling and ensuring a modern, responsive design.
+- **NextAuth** for managing user authentication and real-time updates.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Product Catalog**: Extensive database of PC components with detailed specs, images, and pricing.
+- **Search and Filtering**: Advanced search and filtering options to help users find the exact parts they need.
+- **User Accounts**: Users can create accounts to save wishlists and cart
+- **Shopping Cart**: Secure and user-friendly shopping cart with real-time updates and checkout.
+- **Responsive Design**: Mobile-friendly design for seamless shopping across devices.
+- **Bundled Offers**: Create special offers on product bundles, like a CPU and motherboard combo, to encourage larger purchases.
+- **Discount Codes and Promotions**: Implement functionality for promotional codes and seasonal discounts to attract and retain customers.

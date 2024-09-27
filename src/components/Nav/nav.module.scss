@@ -1,3 +1,5 @@
+@use "../../styles/variables" as v;
+
 .nav {
   position: absolute;
   z-index: 2;
@@ -6,7 +8,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  gap: 5vw;
+  gap: 10vw;
   img {
     height: 80px;
     width: auto;
@@ -23,6 +25,9 @@
     outline: none;
     border-radius: 0.5rem;
     transition: all 0.4s ease-in;
+    box-shadow: 5px 8px 0px v.$primary-color;
+    font-family: v.$primary-font;
+    padding: 0.5rem;
     &:focus {
       width: clamp(15rem, 25vw, 25rem);
     }

@@ -25,10 +25,6 @@ const itemSchema = new Schema({
     type: Number,
     required: true,
   },
-  description: {
-    type: String,
-    required: true,
-  },
   specifications: {
     type: Map,
     of: String,

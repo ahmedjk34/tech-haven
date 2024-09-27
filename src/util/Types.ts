@@ -13,13 +13,12 @@ export interface UserType {
 }
 
 export interface ItemType {
-  _id: ObjectId;
+  _id?: ObjectId;
   name: string;
   brand: string;
   category: string;
   subCategories: string[];
   price: number;
-  description: string;
   specifications: Map<string, string>; // Map of specifications
   images: string[]; // Array of image URLs
   stock: number;

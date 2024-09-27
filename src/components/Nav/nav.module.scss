@@ -1,0 +1,44 @@
+.nav {
+  position: absolute;
+  z-index: 2;
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 5vw;
+  img {
+    height: 80px;
+    width: auto;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+    }
+  }
+  input {
+    height: 2.5rem;
+    width: clamp(10rem, 20vw, 20rem);
+    border: none;
+    outline: none;
+    border-radius: 0.5rem;
+    transition: all 0.4s ease-in;
+    &:focus {
+      width: clamp(15rem, 25vw, 25rem);
+    }
+  }
+  .iconsHolder {
+    display: flex;
+    gap: 0.5rem;
+    color: white;
+    align-items: center;
+    .icon {
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.7;
+        transform: scale(1.05);
+      }
+    }
+  }
+}

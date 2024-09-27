@@ -68,6 +68,12 @@
           align-items: center;
           font-size: large;
           gap: 0.25rem;
+          padding: 0.2rem;
+          border-radius: 0.2rem;
+          transition: all 0.2s ease-in-out;
+          &:hover {
+            opacity: 0.6;
+          }
         }
       }
     }
@@ -82,6 +88,7 @@
         font-family: v.$title-font;
       }
       div {
+        @include m.whiteHoverEffect;
         display: flex;
         align-items: center;
         gap: 0.25rem;

@@ -2,24 +2,31 @@
 import React, { useEffect, useState } from "react";
 import styles from "../searchPage.module.scss";
 import MultiRangeSlider from "multi-range-slider-react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import subCategoriesFilterData from "./data";
 
 type Props = {};
 
 function SideBar({}: Props) {
-  const [minValue, setMinValue] = useState(25);
-  const [maxValue, setMaxValue] = useState(75);
+  const [minValue, setMinValue] = useState(50);
+  const [maxValue, setMaxValue] = useState(1000);
   const handleInput = (e: any) => {
     setMinValue(e.minValue);
     setMaxValue(e.maxValue);
   };
+
   const searchParams = useSearchParams();
   const [subCategories, setSubCategories] = useState<{
     [key: string]: string[];
   }>({});
   const [brands, setBrands] = useState<String[]>([]);
+  const [selectedItems, setSelectedItems] = useState<string[]>(
+    searchParams.get("subCategory")?.split(",") || []
+  );
+
+  const router = useRouter();
   const category = searchParams.get("category");
+
   useEffect(() => {
     if (category) {
       //@ts-ignore
@@ -31,6 +38,25 @@ function SideBar({}: Props) {
       }
     }
   }, [category]);
+
+  const handleSelection = (value: string) => {
+    let updatedItems = [...selectedItems];
+    if (updatedItems.includes(value)) {
+      updatedItems = updatedItems.filter((item) => item !== value);
+    } else {
+      updatedItems.push(value);
+    }
+    setSelectedItems(updatedItems);
+
+    const searchParams = new URLSearchParams(window.location.search);
+    if (updatedItems.length > 0) {
+      searchParams.set("subCategory", updatedItems.join(","));
+    } else {
+      searchParams.delete("subCategory");
+    }
+    router.push(`${window.location.pathname}?${searchParams.toString()}`);
+  };
+
   return (
     <div className={styles.sideBar}>
       <div className={styles.priceSelector}>
@@ -55,9 +81,18 @@ function SideBar({}: Props) {
       </div>
       <div className={styles.subCategorySelector}>
         <div>
-          <h3> Brands:</h3>
+          <h3>Brands:</h3>
           {brands.map((brand) => (
-            <ul key={brand + "BRANDS"}>{brand}</ul>
+            <div key={brand + "BRAND"}>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={selectedItems.includes(brand as string)}
+                  onChange={() => handleSelection(brand as string)}
+                />
+                {brand}
+              </label>
+            </div>
           ))}
         </div>
         {Object.entries(subCategories).map(([title, items]) => (
@@ -65,7 +100,16 @@ function SideBar({}: Props) {
             <h3>{title}</h3>
             <ol>
               {items.map((item) => (
-                <ul key={item + "ITEM"}>{item}</ul>
+                <li key={item + "ITEM"}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedItems.includes(item)}
+                      onChange={() => handleSelection(item)}
+                    />
+                    {item}
+                  </label>
+                </li>
               ))}
             </ol>
           </div>

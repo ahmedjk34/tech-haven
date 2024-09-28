@@ -11,7 +11,7 @@ function CategorySelector({}: Props) {
   // Create a map of categories to their corresponding values
   const categories = new Map<string, string>([
     ["Graphics Cards", "GPU"],
-    ["Processor", "CPU"],
+    ["Processors", "CPU"],
     ["Motherboards", "Motherboard"],
     ["Memory (RAM)", "RAM"],
     ["Storage (SSD/HDD)", "Storage"],

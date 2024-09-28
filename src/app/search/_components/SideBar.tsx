@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../searchPage.module.scss";
 import MultiRangeSlider from "multi-range-slider-react";
 import { useSearchParams } from "next/navigation";
+import subCategoriesFilterData from "./data";
 
 type Props = {};
 
@@ -14,6 +15,22 @@ function SideBar({}: Props) {
     setMaxValue(e.maxValue);
   };
   const searchParams = useSearchParams();
+  const [subCategories, setSubCategories] = useState<{
+    [key: string]: string[];
+  }>({});
+  const [brands, setBrands] = useState<String[]>([]);
+  const category = searchParams.get("category");
+  useEffect(() => {
+    if (category) {
+      //@ts-ignore
+      const categoryData = subCategoriesFilterData[category];
+      if (categoryData) {
+        setSubCategories(categoryData.subcategories);
+        setBrands(categoryData.brands);
+        console.log(categoryData);
+      }
+    }
+  }, [category]);
   return (
     <div className={styles.sideBar}>
       <div className={styles.priceSelector}>
@@ -36,7 +53,24 @@ function SideBar({}: Props) {
           {minValue}$ - {maxValue}$
         </h4>
       </div>
-      <div className={styles.subCategorySelector}></div>
+      <div className={styles.subCategorySelector}>
+        <div>
+          <h3> Brands:</h3>
+          {brands.map((brand) => (
+            <ul key={brand + "BRANDS"}>{brand}</ul>
+          ))}
+        </div>
+        {Object.entries(subCategories).map(([title, items]) => (
+          <div key={title}>
+            <h3>{title}</h3>
+            <ol>
+              {items.map((item) => (
+                <ul key={item + "ITEM"}>{item}</ul>
+              ))}
+            </ol>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

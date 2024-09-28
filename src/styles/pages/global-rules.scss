@@ -1,3 +1,4 @@
+@use "../variables" as v;
 * {
   margin: 0;
   padding: 0;
@@ -5,9 +6,9 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
-#root {
-  display: grid;
+body {
   min-height: 100vh;
+  background-color: v.$backgroundColor;
 }
 // html {
 //   scroll-behavior: smooth;

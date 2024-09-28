@@ -6,7 +6,11 @@
   position: relative;
   overflow: hidden;
   background-color: v.$backgroundColor;
-
+  a {
+    //to center the icons & reset Link styles
+    color: inherit;
+    text-decoration: inherit;
+  }
   .videoContainer {
     position: absolute;
     top: 50%;

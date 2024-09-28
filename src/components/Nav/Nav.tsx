@@ -4,11 +4,13 @@ import styles from "./nav.module.scss";
 import logo from "../../../public/logo.png";
 import Image from "next/image";
 import { CgShoppingCart, CgProfile } from "react-icons/cg";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
 function Nav({}: Props) {
   const [searchTerm, setSearchTerm] = useState("");
+  const router = useRouter();
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -16,7 +18,7 @@ function Nav({}: Props) {
 
   return (
     <div className={styles.nav}>
-      <Image src={logo} alt="logo" />
+      <Image src={logo} alt="logo" onClick={(e) => router.push("/")} />
       <input
         type="text"
         value={searchTerm}

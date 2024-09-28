@@ -16,5 +16,4 @@ A PC parts e-commerce website where users can browse, compare, and purchase comp
 - **User Accounts**: Users can create accounts to save wishlists and cart
 - **Shopping Cart**: Secure and user-friendly shopping cart with real-time updates and checkout.
 - **Responsive Design**: Mobile-friendly design for seamless shopping across devices.
-- **Bundled Offers**: Create special offers on product bundles, like a CPU and motherboard combo, to encourage larger purchases.
 - **Discount Codes and Promotions**: Implement functionality for promotional codes and seasonal discounts to attract and retain customers.

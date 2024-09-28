@@ -1,22 +1,39 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "../searchPage.module.scss";
+import MultiRangeSlider from "multi-range-slider-react";
+import { useSearchParams } from "next/navigation";
 
 type Props = {};
 
 function SideBar({}: Props) {
-  const [lowRangeValue, setLowRangeValue] = useState(1);
-  const [highRangeValue, setHighRangeValue] = useState(1500);
-  useEffect(() => {
-    console.log(lowRangeValue);
-  }, [lowRangeValue]);
+  const [minValue, setMinValue] = useState(25);
+  const [maxValue, setMaxValue] = useState(75);
+  const handleInput = (e: any) => {
+    setMinValue(e.minValue);
+    setMaxValue(e.maxValue);
+  };
+  const searchParams = useSearchParams();
   return (
     <div className={styles.sideBar}>
       <div className={styles.priceSelector}>
         <h2>Price Range</h2>
-        <RangeSlider />
+        <MultiRangeSlider
+          min={50}
+          max={1000}
+          step={50}
+          stepOnly="true"
+          ruler="false"
+          className={styles.rangeSlider}
+          barInnerColor="green"
+          minValue={minValue}
+          maxValue={maxValue}
+          onInput={(e) => {
+            handleInput(e);
+          }}
+        />
         <h4>
-          {lowRangeValue}$ - {highRangeValue}$
+          {minValue}$ - {maxValue}$
         </h4>
       </div>
       <div className={styles.subCategorySelector}></div>

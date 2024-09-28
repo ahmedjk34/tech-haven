@@ -43,15 +43,26 @@
   .sideBar {
     padding: 0 1.5rem;
     color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     //for titles inside the two sections
     h2 {
       font-family: v.$title-font;
     }
-    .priceSelector {
+    .priceSelector,
+    .subCategorySelector {
       padding: 2rem;
       background-color: v.$primary-color;
-      box-shadow: 3px 6px white;
       border-radius: 1rem;
+      box-shadow: 3px 6px white;
+    }
+    .priceSelector {
+      .rangeSlider {
+        background: none;
+        border: none;
+        box-shadow: none;
+      }
       h4 {
         font-family: v.$secondary-font;
         text-align: center;

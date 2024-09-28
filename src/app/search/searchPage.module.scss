@@ -40,4 +40,25 @@
       }
     }
   }
+  .sideBar {
+    padding: 0 1.5rem;
+    color: white;
+    //for titles inside the two sections
+    h2 {
+      font-family: v.$title-font;
+    }
+    .priceSelector {
+      padding: 2rem;
+      background-color: v.$primary-color;
+      box-shadow: 3px 6px white;
+      border-radius: 1rem;
+      h4 {
+        font-family: v.$secondary-font;
+        text-align: center;
+        font-size: large;
+      }
+    }
+    .subCategorySelector {
+    }
+  }
 }

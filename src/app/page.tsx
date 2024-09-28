@@ -5,7 +5,7 @@ import {
   BsHddFill,
   BsMemory,
   BsKeyboardFill,
-  BsDisplay,
+  BsCpuFill,
 } from "react-icons/bs";
 import styles from "./home.module.scss";
 import Link from "next/link";
@@ -53,30 +53,33 @@ export default function Home() {
 }
 
 function createQuickNavigationItems() {
-  const categories = [
-    "Graphics Cards",
-    "Motherboards",
-    "Memory (RAM)",
-    "Storage (SSD/HDD)",
-    "Monitors",
-    "Accessories",
-  ];
+  // Create a map of categories to their corresponding values
+  const categories = new Map<string, string>([
+    ["Graphics Cards", "GPU"],
+    ["Processors", "CPU"],
+    ["Motherboards", "Motherboard"],
+    ["Memory (RAM)", "RAM"],
+    ["Storage (SSD/HDD)", "Storage"],
+    ["Accessories", "Accessories"],
+  ]);
 
   const icons = [
     <BsGpuCard />,
+    <BsCpuFill />,
     <BsFillMotherboardFill />,
     <BsMemory />,
     <BsHddFill />,
-    <BsDisplay />,
     <BsKeyboardFill />,
   ];
 
   return (
     <>
-      {categories.map((category, index) => (
+      {Array.from(categories.keys()).map((category, index) => (
         <div key={index} className="quick-nav-item">
           {icons[index]}
-          {category}
+          <Link href={`/search?category=${categories.get(category)}`}>
+            {category}
+          </Link>
         </div>
       ))}
     </>

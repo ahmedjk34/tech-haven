@@ -25,7 +25,7 @@ const subCategoriesFilterData = {
   Motherboard: {
     brands: ["MSI", "ASUS", "ASRock"],
     subcategories: {
-      CompatibleCPU: ["Intel", "AMD"], // Renamed from Manufacturer
+      Compatible_CPU: ["Intel", "AMD"], // Renamed from Manufacturer
       Series: ["LGA1700", "B550", "B450", "AM4", "AM5"],
       Tier: ["Entry-Level", "Budget", "Mid-Range", "High-End"],
     },

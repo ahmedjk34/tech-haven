@@ -22,21 +22,22 @@ function SideBar({}: Props) {
   const [brands, setBrands] = useState<string[]>([]);
   const [selectedItems, setSelectedItems] = useState<{
     [group: string]: string;
-  }>(
-    searchParams
-      .get("subCategories")
-      ?.split(",")
-      .reduce((acc: { [group: string]: string }, item) => {
-        acc[item] = item;
-        return acc;
-      }, {}) || {}
-  );
-
+  }>({});
   const [activeGroup, setActiveGroup] = useState<string | null>(null); // New state to track active group
   const router = useRouter();
   const category = searchParams.get("category");
 
+  // Clear URL parameters and reset selectedItems on page load
   useEffect(() => {
+    // Reset selected items to an empty object
+    setSelectedItems({});
+
+    // Clear URL parameters for 'subCategories' and 'brand'
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.delete("subCategories");
+    searchParams.delete("brand");
+    router.replace(`${window.location.pathname}?${searchParams.toString()}`);
+
     if (category) {
       //@ts-ignore
       const categoryData = subCategoriesFilterData[category];
@@ -45,7 +46,7 @@ function SideBar({}: Props) {
         setBrands(categoryData.brands);
       }
     }
-  }, [category]);
+  }, [category, router]);
 
   const handleSelection = (group: string, value: string) => {
     const updatedItems = { ...selectedItems, [group]: value };
@@ -99,15 +100,15 @@ function SideBar({}: Props) {
         <div>
           <h4
             className={styles.title}
-            onClick={
-              () => setActiveGroup(activeGroup === "Brands" ? null : "Brands") // Toggle active state for Brands
-            }
+            onClick={() =>
+              setActiveGroup(activeGroup === "Brands" ? null : "Brands")
+            } // Toggle active state for Brands
           >
             Brands
           </h4>
-          <ol
-            className={`${activeGroup === "Brands" ? styles.active : ""}`} // Apply "active" class if it's the active group
-          >
+          <ol className={`${activeGroup === "Brands" ? styles.active : ""}`}>
+            {" "}
+            {/* Apply "active" class if it's the active group */}
             {brands.map((brand) => (
               <li key={brand + "BRAND"}>
                 <label>
@@ -128,15 +129,15 @@ function SideBar({}: Props) {
           <div key={title}>
             <h4
               className={styles.title}
-              onClick={
-                () => setActiveGroup(activeGroup === title ? null : title) // Toggle active state for each subcategory
-              }
+              onClick={() =>
+                setActiveGroup(activeGroup === title ? null : title)
+              } // Toggle active state for each subcategory
             >
               {title}
             </h4>
-            <ol
-              className={`${activeGroup === title ? styles.active : ""}`} // Apply "active" class if it's the active group
-            >
+            <ol className={`${activeGroup === title ? styles.active : ""}`}>
+              {" "}
+              {/* Apply "active" class if it's the active group */}
               {items.map((item) => (
                 <li key={item + "ITEM"}>
                   <label>

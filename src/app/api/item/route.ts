@@ -9,7 +9,6 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get("category");
     const subCategories = searchParams.getAll("subCategories")[0].split(",");
     const brand = searchParams.get("brand");
-    console.log(category, brand, subCategories);
     const query: any = {};
 
     if (category && category !== "undefined") {
@@ -24,13 +23,12 @@ export async function GET(request: NextRequest) {
       query.brand = brand;
     }
 
-    // Fetch items based on the constructed query
     const items = await itemModel.find(query);
 
     return NextResponse.json(items);
-  } catch (error) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { error: `An error occurred: ${error.message}` },
+      { error: `An error occurred: ${error}` },
       { status: 500 }
     );
   }

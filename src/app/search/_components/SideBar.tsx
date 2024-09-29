@@ -20,9 +20,15 @@ function SideBar({}: Props) {
     [key: string]: string[];
   }>({});
   const [brands, setBrands] = useState<string[]>([]);
-  const [selectedItems, setSelectedItems] = useState<{
-    [key: string]: string;
-  }>({});
+  const [selectedItems, setSelectedItems] = useState<{ [group: string]: string }>(
+    searchParams
+      .get("subCategories")
+      ?.split(",")
+      .reduce((acc: { [group: string]: string }, item) => {
+        acc[item] = item;
+        return acc;
+      }, {}) || {}
+  );
 
   const router = useRouter();
   const category = searchParams.get("category");
@@ -43,12 +49,14 @@ function SideBar({}: Props) {
 
     setSelectedItems(updatedItems);
 
+    const selectedValues = Object.values(updatedItems);
     const searchParams = new URLSearchParams(window.location.search);
 
-    // Update subCategory parameter for each group
-    Object.keys(updatedItems).forEach((key) => {
-      searchParams.set(key, updatedItems[key]);
-    });
+    if (selectedValues.length > 0) {
+      searchParams.set("subCategories", selectedValues.join(","));
+    } else {
+      searchParams.delete("subCategories");
+    }
 
     router.push(`${window.location.pathname}?${searchParams.toString()}`);
   };

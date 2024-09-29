@@ -136,8 +136,6 @@ function SideBar({}: Props) {
               {title}
             </h4>
             <ol className={`${activeGroup === title ? styles.active : ""}`}>
-              {" "}
-              {/* Apply "active" class if it's the active group */}
               {items.map((item) => (
                 <li key={item + "ITEM"}>
                   <label>

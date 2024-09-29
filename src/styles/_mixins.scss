@@ -17,3 +17,23 @@
     cursor: pointer;
   }
 }
+
+@mixin categoryGradiant {
+  background: #373b44; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #4286f4,
+    #373b44
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #4286f4,
+    #373b44
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  box-shadow: 3px 6px 0px v.$primary-color;
+  transition: transform 0.25s ease-in-out;
+  &:hover {
+    transform: translate(2%, 5%);
+    cursor: pointer;
+  }
+}

@@ -41,7 +41,7 @@
     }
   }
   .sideBar {
-    padding: 0 1.5rem;
+    padding: 1.5rem;
     color: white;
     display: flex;
     flex-direction: column;
@@ -70,6 +70,77 @@
       }
     }
     .subCategorySelector {
+      .title {
+        font-family: v.$title-font;
+        opacity: 0.75;
+        padding: 0.25rem;
+        &:hover {
+          cursor: pointer;
+          border: 1px solid white;
+        }
+        &::after {
+          content: "";
+          border: solid white;
+          border-width: 0 3px 3px 0;
+          display: inline-block;
+          padding: 3px;
+          transform: rotate(-45deg);
+          transition: transform 0.1s ease-in-out;
+          margin-left: 0.5rem;
+        }
+      }
+      .title + ol {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.25s linear;
+      }
+      .title + ol.active {
+        max-height: 200px;
+      }
+      div:has(ol.active) {
+        .title {
+          &::after {
+            transform: rotate(45deg);
+          }
+        }
+      }
+      label {
+        height: 0;
+        overflow: hidden;
+        font-family: v.$primary-font;
+        input[type="radio"] {
+          position: relative;
+          -webkit-appearance: none;
+          appearance: none;
+          /* For iOS < 15 to remove gradient background */
+          background-color: #fff;
+          font: inherit;
+          color: white;
+          width: 1.15em;
+          height: 1.15em;
+          border: 0.15em solid white;
+          border-radius: 20%;
+          transform: translateY(0.075em);
+          margin-right: 0.25rem;
+          margin-left: 0.5rem;
+          &::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: "";
+            width: 0.7em;
+            height: 0.7em;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em var(--form-control-color);
+            background-color: green;
+            border-radius: 50%;
+          }
+          &:checked::before {
+            transform: scale(1.25);
+          }
+        }
+      }
     }
   }
 }

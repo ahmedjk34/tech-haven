@@ -20,7 +20,9 @@ function SideBar({}: Props) {
     [key: string]: string[];
   }>({});
   const [brands, setBrands] = useState<string[]>([]);
-  const [selectedItems, setSelectedItems] = useState<{ [group: string]: string }>(
+  const [selectedItems, setSelectedItems] = useState<{
+    [group: string]: string;
+  }>(
     searchParams
       .get("subCategories")
       ?.split(",")
@@ -30,6 +32,7 @@ function SideBar({}: Props) {
       }, {}) || {}
   );
 
+  const [activeGroup, setActiveGroup] = useState<string | null>(null); // New state to track active group
   const router = useRouter();
   const category = searchParams.get("category");
 
@@ -84,27 +87,48 @@ function SideBar({}: Props) {
         </h4>
       </div>
       <div className={styles.subCategorySelector}>
+        <h2>Sub Categories</h2>
         <div>
-          <h3>Brands:</h3>
-          {brands.map((brand) => (
-            <div key={brand + "BRAND"}>
-              <label>
-                <input
-                  type="radio"
-                  name="brand"
-                  value={brand}
-                  checked={selectedItems["brand"] === brand}
-                  onChange={() => handleSelection("brand", brand)}
-                />
-                {brand}
-              </label>
-            </div>
-          ))}
+          <h4
+            className={styles.title}
+            onClick={
+              () => setActiveGroup(activeGroup === "Brands" ? null : "Brands") // Toggle active state for Brands
+            }
+          >
+            Brands
+          </h4>
+          <ol
+            className={`${activeGroup === "Brands" ? styles.active : ""}`} // Apply "active" class if it's the active group
+          >
+            {brands.map((brand) => (
+              <li key={brand + "BRAND"}>
+                <label>
+                  <input
+                    type="radio"
+                    name="brand"
+                    value={brand}
+                    checked={selectedItems["brand"] === brand}
+                    onChange={() => handleSelection("brand", brand)}
+                  />
+                  {brand}
+                </label>
+              </li>
+            ))}
+          </ol>
         </div>
         {Object.entries(subCategories).map(([title, items]) => (
           <div key={title}>
-            <h3>{title}</h3>
-            <ol>
+            <h4
+              className={styles.title}
+              onClick={
+                () => setActiveGroup(activeGroup === title ? null : title) // Toggle active state for each subcategory
+              }
+            >
+              {title}
+            </h4>
+            <ol
+              className={`${activeGroup === title ? styles.active : ""}`} // Apply "active" class if it's the active group
+            >
               {items.map((item) => (
                 <li key={item + "ITEM"}>
                   <label>

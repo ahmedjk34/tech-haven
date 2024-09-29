@@ -1,8 +1,10 @@
 .authPage {
-  width: 100%;
-  height: 100%;
+  width: 100dvw;
+  height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("/public/authenticationBackground.jpg");
+  background-image: url("/authenticationBackground.jpg");
+  background-size: cover;
+  background-position: center;
 }

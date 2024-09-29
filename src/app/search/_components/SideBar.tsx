@@ -19,10 +19,10 @@ function SideBar({}: Props) {
   const [subCategories, setSubCategories] = useState<{
     [key: string]: string[];
   }>({});
-  const [brands, setBrands] = useState<String[]>([]);
-  const [selectedItems, setSelectedItems] = useState<string[]>(
-    searchParams.get("subCategory")?.split(",") || []
-  );
+  const [brands, setBrands] = useState<string[]>([]);
+  const [selectedItems, setSelectedItems] = useState<{
+    [key: string]: string;
+  }>({});
 
   const router = useRouter();
   const category = searchParams.get("category");
@@ -34,26 +34,22 @@ function SideBar({}: Props) {
       if (categoryData) {
         setSubCategories(categoryData.subcategories);
         setBrands(categoryData.brands);
-        console.log(categoryData);
       }
     }
   }, [category]);
 
-  const handleSelection = (value: string) => {
-    let updatedItems = [...selectedItems];
-    if (updatedItems.includes(value)) {
-      updatedItems = updatedItems.filter((item) => item !== value);
-    } else {
-      updatedItems.push(value);
-    }
+  const handleSelection = (group: string, value: string) => {
+    const updatedItems = { ...selectedItems, [group]: value };
+
     setSelectedItems(updatedItems);
 
     const searchParams = new URLSearchParams(window.location.search);
-    if (updatedItems.length > 0) {
-      searchParams.set("subCategory", updatedItems.join(","));
-    } else {
-      searchParams.delete("subCategory");
-    }
+
+    // Update subCategory parameter for each group
+    Object.keys(updatedItems).forEach((key) => {
+      searchParams.set(key, updatedItems[key]);
+    });
+
     router.push(`${window.location.pathname}?${searchParams.toString()}`);
   };
 
@@ -86,9 +82,11 @@ function SideBar({}: Props) {
             <div key={brand + "BRAND"}>
               <label>
                 <input
-                  type="checkbox"
-                  checked={selectedItems.includes(brand as string)}
-                  onChange={() => handleSelection(brand as string)}
+                  type="radio"
+                  name="brand"
+                  value={brand}
+                  checked={selectedItems["brand"] === brand}
+                  onChange={() => handleSelection("brand", brand)}
                 />
                 {brand}
               </label>
@@ -103,9 +101,11 @@ function SideBar({}: Props) {
                 <li key={item + "ITEM"}>
                   <label>
                     <input
-                      type="checkbox"
-                      checked={selectedItems.includes(item)}
-                      onChange={() => handleSelection(item)}
+                      type="radio"
+                      name={title}
+                      value={item}
+                      checked={selectedItems[title] === item}
+                      onChange={() => handleSelection(title, item)}
                     />
                     {item}
                   </label>

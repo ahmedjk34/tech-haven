@@ -52,13 +52,21 @@ function SideBar({}: Props) {
 
     setSelectedItems(updatedItems);
 
-    const selectedValues = Object.values(updatedItems);
     const searchParams = new URLSearchParams(window.location.search);
 
-    if (selectedValues.length > 0) {
-      searchParams.set("subCategories", selectedValues.join(","));
+    if (group === "brand") {
+      searchParams.set("brand", value);
     } else {
-      searchParams.delete("subCategories");
+      // Handle subCategories parameter
+      const subCategoryValues = Object.keys(updatedItems)
+        .filter((key) => key !== "brand")
+        .map((key) => updatedItems[key]);
+
+      if (subCategoryValues.length > 0) {
+        searchParams.set("subCategories", subCategoryValues.join(","));
+      } else {
+        searchParams.delete("subCategories");
+      }
     }
 
     router.push(`${window.location.pathname}?${searchParams.toString()}`);

@@ -3,6 +3,7 @@ import React from "react";
 import styles from "../searchPage.module.scss";
 import axios from "axios";
 import { ItemType } from "@/util/Types";
+import ItemCard from "./ItemCard";
 
 type Props = {};
 
@@ -21,7 +22,7 @@ export async function ItemsHolder({
     return (
       <div className={styles.itemsHolder}>
         {items?.map((item) => (
-          <div>{item.brand}</div>
+          <ItemCard item={item} />
         ))}
       </div>
     );

@@ -8,7 +8,7 @@ function page({}: Props) {
     <div className={styles.authPage}>
       <AuthenticationForm
         type="Sign Up"
-        fields={["name", "email", "password"]}
+        fields={["Name", "Email", "Password"]}
       />
     </div>
   );

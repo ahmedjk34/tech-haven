@@ -6,7 +6,7 @@ type Props = {};
 function page({}: Props) {
   return (
     <div className={styles.authPage}>
-      <AuthenticationForm type="Login" fields={["email", "password"]} />
+      <AuthenticationForm type="Login" fields={["Email", "Password"]} />
     </div>
   );
 }

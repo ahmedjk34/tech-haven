@@ -4,7 +4,6 @@ import styles from "../searchPage.module.scss";
 import axios from "axios";
 import { ItemType } from "@/util/Types";
 import ItemCard from "../../../components/ItemCard/ItemCard";
-import { auth } from "@/auth";
 
 type Props = {};
 

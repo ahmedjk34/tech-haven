@@ -12,25 +12,27 @@ export async function ItemsHolder({
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const response = await axios.get(
-    `http://localhost:3000/api/item?category=${searchParams?.category}&subCategories=${searchParams?.subCategories}&brand=${searchParams?.brand}`
-  );
-  const items: ItemType[] = response.data;
-
-  if (response.status == 200)
-    return (
-      <div className={styles.itemsHolder}>
-        {items?.map((item) => (
-          <ItemCard item={item} />
-        ))}
-      </div>
+  try {
+    const response = await axios.get(
+      `http://localhost:3000/api/item?category=${searchParams?.category}&subCategories=${searchParams?.subCategories}&brand=${searchParams?.brand}`
     );
-  else
+    const items: ItemType[] = response.data;
+
+    if (response.status == 200)
+      return (
+        <div className={styles.itemsHolder}>
+          {items?.map((item) => (
+            <ItemCard item={item} />
+          ))}
+        </div>
+      );
+  } catch (error) {
     return (
       <div>
         <h2>An error fetching data occurred</h2>
       </div>
     );
+  }
 }
 
 export default ItemsHolder;

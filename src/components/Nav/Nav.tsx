@@ -11,7 +11,6 @@ type Props = {};
 function Nav({}: Props) {
   const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
-
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };

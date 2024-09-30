@@ -1,0 +1,34 @@
+@use "../../../styles/variables" as v;
+.itemPage {
+  margin-top: 100px; //nav height
+  color: v.$text-color;
+  padding: 1.5rem;
+  background-color: v.$primary-color;
+  width: 80%;
+  border-radius: 1rem;
+  box-shadow: 8px 12px black;
+  min-height: calc(90dvh - 100px);
+  //to center
+  margin-left: auto;
+  margin-right: auto;
+  h1 {
+    text-align: center;
+    font-family: v.$primary-font;
+  }
+  .mainInfoHolder {
+    .mainInfo {
+    }
+    .imageSliderContainer {
+      width: 50%;
+      overflow: hidden;
+      img {
+        background-color: white;
+        overflow: hidden;
+        border-radius: 1rem;
+        border: 0.5rem solid black;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+  }
+}

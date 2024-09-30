@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./authenticationForm.module.scss";
+import Link from "next/link";
 
 type Props = {
   type: "Sign Up" | "Login";
@@ -22,7 +23,7 @@ function AuthenticationForm({ type, fields }: Props) {
       <h2>{type}</h2>
       {fields.map((field) => (
         <div key={field} className={styles.field}>
-          <label htmlFor={field}>{field}</label>
+          <label htmlFor={field}>{field}:</label>
           <input
             id={field}
             name={field.toLowerCase()}
@@ -30,9 +31,14 @@ function AuthenticationForm({ type, fields }: Props) {
           />
         </div>
       ))}
-      <button type="submit" className={styles.submitButton}>
-        {type}
-      </button>
+      <div className={styles.actionsHolder}>
+        <button type="submit" className={styles.submitButton}>
+          {type}
+        </button>
+        <Link href={type == "Login" ? "/register" : "/login"}>
+          {type == "Login" ? "Sign Up" : "Login"}
+        </Link>
+      </div>
     </form>
   );
 }

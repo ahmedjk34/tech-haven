@@ -3,7 +3,7 @@ import React from "react";
 import styles from "../searchPage.module.scss";
 import axios from "axios";
 import { ItemType } from "@/util/Types";
-import ItemCard from "./ItemCard";
+import ItemCard from "../../../components/ItemCard/ItemCard";
 
 type Props = {};
 

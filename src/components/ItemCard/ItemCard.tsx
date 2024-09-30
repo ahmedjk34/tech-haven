@@ -1,5 +1,5 @@
 import { ItemType } from "@/util/Types";
-import styles from "../searchPage.module.scss";
+import styles from "./itemCard.module.scss";
 import React from "react";
 import Image from "next/image";
 

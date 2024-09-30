@@ -24,14 +24,3 @@ export interface ItemType {
   stock: number;
   discount: number;
 }
-
-export interface BundleType {
-  _id: ObjectId;
-  name: string;
-  items: {
-    item: ItemType;
-    quantity: number;
-  }[];
-  totalPrice: number;
-  discount: number;
-}

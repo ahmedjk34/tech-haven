@@ -19,18 +19,91 @@
       transform: scale(1.05);
     }
   }
-  input {
-    height: 2.5rem;
-    width: clamp(10rem, 20vw, 20rem);
-    border: none;
-    outline: none;
-    border-radius: 0.5rem;
-    transition: all 0.4s ease-in;
-    box-shadow: 5px 8px 0px v.$primary-color;
-    font-family: v.$primary-font;
-    padding: 0.5rem;
-    &:focus {
-      width: clamp(15rem, 25vw, 25rem);
+  .inputHolder {
+    position: relative;
+    input {
+      height: 2.5rem;
+      width: clamp(10rem, 20vw, 20rem);
+      border: none;
+      outline: none;
+      border-radius: 0.5rem;
+      transition: all 0.4s ease-in;
+      box-shadow: 5px 8px 0px v.$primary-color;
+      font-family: v.$primary-font;
+      padding: 0.5rem;
+      &:focus {
+        width: clamp(15rem, 25vw, 25rem);
+      }
+    }
+    .searchPopUp {
+      position: absolute;
+      top: 3.5rem;
+      left: 0;
+      width: 100%;
+      background-color: white;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      z-index: 1000;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1), 5px 8px 0px v.$primary-color;
+
+      &.active {
+        display: block;
+      }
+
+      // Nested items inside searchPopUp
+      .itemList {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        .item {
+          display: flex;
+          align-items: center;
+          margin-bottom: 1rem;
+          padding: 0.5rem;
+          border: 1px solid #ddd;
+          border-radius: 0.5rem;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: #f5f5f5;
+          }
+
+          // Nested image inside item
+          .itemImage {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 1rem;
+            border-radius: 0.25rem;
+            border: 1px solid #ddd;
+          }
+
+          // Nested item info inside item
+          .itemInfo {
+            display: flex;
+            flex-direction: column;
+
+            h3 {
+              margin: 0;
+              font-size: 1rem;
+              font-weight: 600;
+              color: v.$primary-color;
+            }
+
+            p {
+              margin: 0.2rem 0;
+              font-size: 0.9rem;
+              color: #666;
+            }
+
+            .discountText {
+              color: v.$primary-color;
+              font-weight: bold;
+            }
+          }
+        }
+      }
     }
   }
   .iconsHolder {

@@ -26,7 +26,7 @@ const login = async (formData: FormData) => {
 };
 
 const register = async (formData: FormData) => {
-  const username = formData.get("username") as string;
+  const username = formData.get("name") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   if (!username || !email || !password) {

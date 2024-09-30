@@ -1,13 +1,19 @@
 import React from "react";
 import styles from "./authenticationForm.module.scss";
 import Link from "next/link";
+import { login, register } from "@/actions/user";
 
 type Props = {
   type: "Sign Up" | "Login";
   fields: string[];
+  action: (
+    formData: FormData
+  ) => Promise<
+    (Record<string, unknown> & { err?: Error | undefined }) | undefined
+  >;
 };
 
-function AuthenticationForm({ type, fields }: Props) {
+function AuthenticationForm({ type, fields, action }: Props) {
   const renderInputType = (field: string) => {
     if (field.toLowerCase() === "email") {
       return "email";
@@ -19,7 +25,7 @@ function AuthenticationForm({ type, fields }: Props) {
   };
 
   return (
-    <form className={styles.form}>
+    <form className={styles.form} action={action}>
       <h2>{type}</h2>
       {fields.map((field) => (
         <div key={field} className={styles.field}>

@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../../styles/pages/authenticationPage.module.scss";
 import AuthenticationForm from "@/components/AuthenticationForm/AuthenticationForm";
+import { register } from "@/actions/user";
 type Props = {};
 
 function page({}: Props) {
@@ -9,6 +10,7 @@ function page({}: Props) {
       <AuthenticationForm
         type="Sign Up"
         fields={["Name", "Email", "Password"]}
+        action={register}
       />
     </div>
   );

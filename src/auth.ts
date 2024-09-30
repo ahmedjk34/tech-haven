@@ -3,6 +3,7 @@ import NextAuth, { CredentialsSignin } from "next-auth";
 import credentials from "next-auth/providers/credentials";
 import User from "./models/userModel";
 import connectDB from "./lib/connectDB";
+import { UserType } from "./util/Types";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     credentials({
@@ -20,7 +21,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         await connectDB();
 
-        const user = await User.findOne({ email });
+        const user: UserType | null = await User.findOne({ email });
 
         if (!user) {
           throw new Error("Invalid email or password");
@@ -35,11 +36,34 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!isMatched) {
           throw new Error("Password did not matched");
         }
-        let userData = {}; //fill it based on your needs
+        let userData = {
+          id: user._id.toString(),
+          username: user.username,
+          cart: user.cart,
+          wishlist: user.wishlist,
+        };
         return userData;
       },
     }),
   ],
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id as string;
+        token.username = user.username;
+        token.wishlist = user.wishlist;
+        token.cart = user.cart;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      session.user.id = token.id;
+      session.user.username = token.username;
+      session.user.wishlist = token.wishlist;
+      session.user.cart = token.cart;
+      return session;
+    },
+  },
   pages: {
     //here we add those if we don't want to use the default auth.js pages
     signIn: "/login",

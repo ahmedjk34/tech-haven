@@ -21,6 +21,7 @@
   }
   .inputHolder {
     position: relative;
+
     input {
       height: 2.5rem;
       width: clamp(10rem, 20vw, 20rem);
@@ -31,10 +32,12 @@
       box-shadow: 5px 8px 0px v.$primary-color;
       font-family: v.$primary-font;
       padding: 0.5rem;
+
       &:focus {
         width: clamp(15rem, 25vw, 25rem);
       }
     }
+
     .searchPopUp {
       position: absolute;
       top: 3.5rem;
@@ -45,12 +48,12 @@
       padding: 1rem;
       z-index: 1000;
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1), 5px 8px 0px v.$primary-color;
+      display: none; // Hide by default
 
       &.active {
-        display: block;
+        display: block; // Show when active class is applied
       }
 
-      // Nested items inside searchPopUp
       .itemList {
         list-style: none;
         padding: 0;
@@ -69,7 +72,6 @@
             background-color: #f5f5f5;
           }
 
-          // Nested image inside item
           .itemImage {
             width: 50px;
             height: 50px;
@@ -79,7 +81,6 @@
             border: 1px solid #ddd;
           }
 
-          // Nested item info inside item
           .itemInfo {
             display: flex;
             flex-direction: column;
@@ -106,6 +107,7 @@
       }
     }
   }
+
   .iconsHolder {
     display: flex;
     gap: 0.5rem;

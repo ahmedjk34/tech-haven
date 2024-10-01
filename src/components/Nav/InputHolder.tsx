@@ -56,20 +56,33 @@ function InputHolder({}: Props) {
     return discount !== 0 ? price - (price * discount) / 100 : price;
   };
 
+  // Handle focus and blur events
+  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    // Only hide popup if neither the input nor the popup itself is focused
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      setIsFocused(false);
+    }
+  };
+
   return (
-    <div className={styles.inputHolder}>
+    <div
+      className={styles.inputHolder}
+      onBlur={handleBlur}
+      onFocus={() => setIsFocused(true)}
+      tabIndex={-1}
+    >
       <input
         type="text"
         value={searchTerm}
         onChange={handleSearchChange}
         placeholder="Search..."
-        onFocus={() => setIsFocused(true)} // Set focused state to true
-        onBlur={() => setIsFocused(false)} // Set focused state to false
       />
       <div
         className={`${styles.searchPopUp} ${
-          isFocused && (loading || items.length > 0) ? styles.active : ""
-        }`} // Show popup if focused and either loading or items exist
+          isFocused && searchTerm && (loading || items.length > 0)
+            ? styles.active
+            : ""
+        }`} // Show popup only when focused AND searchTerm is not empty
       >
         {loading ? ( // Display loading indicator when loading
           <p>Loading...</p>

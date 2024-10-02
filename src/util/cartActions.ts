@@ -22,3 +22,30 @@ export function addItemToCart(
     }
   });
 }
+
+export function deleteItemFromCart(
+  cart: ContextType[],
+  setCart: React.Dispatch<React.SetStateAction<ContextType[]>>,
+  item: ItemType
+) {
+  setCart((prevCart) => {
+    const existingItemIndex = prevCart.findIndex(
+      (cartItem) => cartItem.data._id === item._id
+    );
+
+    if (existingItemIndex !== -1) {
+      const updatedCart = [...prevCart];
+      const currentQuantity = updatedCart[existingItemIndex].quantity;
+
+      if (currentQuantity > 1) {
+        updatedCart[existingItemIndex].quantity -= 1;
+      } else {
+        updatedCart.splice(existingItemIndex, 1);
+      }
+
+      return updatedCart;
+    }
+
+    return prevCart;
+  });
+}

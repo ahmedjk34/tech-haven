@@ -34,12 +34,19 @@ export default function Home() {
             </p>
           </div>
           <div className={styles.personalInfo}>
-            <Link href={"https://github.com/ahmedjk34"}>
+            <Link
+              href="https://github.com/ahmedjk34"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaGithub /> Ahmedjk34
             </Link>
-            <Link href={"https://www.linkedin.com/in/ahmedjk34/"}>
-              <FaLinkedin />
-              Ahmed Gharib
+            <Link
+              href="https://www.linkedin.com/in/ahmedjk34/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaLinkedin /> Ahmed Gharib
             </Link>
           </div>
         </div>

@@ -8,8 +8,15 @@ export async function GET(
 ) {
   try {
     await connectDB();
+
     const item = await itemModel.findById(params.id);
-    return NextResponse.json(item);
+
+    const recommendedItems = await itemModel.aggregate([
+      { $match: { category: item.category, _id: { $ne: item._id } } }, // Exclude the current item
+      { $sample: { size: 3 } }, // Randomly select 3 items
+    ]);
+
+    return NextResponse.json({ item, recommendedItems });
   } catch (error) {
     return NextResponse.json(
       { error: `An error occurred: ${error}` },

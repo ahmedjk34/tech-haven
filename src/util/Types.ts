@@ -24,3 +24,8 @@ export interface ItemType {
   stock: number;
   discount: number;
 }
+
+export interface ContextType {
+  data: ItemType;
+  quantity: number;
+}

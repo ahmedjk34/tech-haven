@@ -1,4 +1,5 @@
 @use "../../../styles/variables" as v;
+@use "../../../styles/mixins" as m;
 .itemPage {
   margin-top: 100px; //nav height
   color: v.$text-color;
@@ -7,19 +8,47 @@
   width: 80%;
   border-radius: 1rem;
   box-shadow: 8px 12px black;
-  min-height: calc(90dvh - 100px);
+  height: fit-content;
   //to center
   margin-left: auto;
   margin-right: auto;
-  h1 {
-    text-align: center;
-    font-family: v.$primary-font;
+  .titleAndStockHolder {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-right: 3vw;
+    h1 {
+      text-align: center;
+      font-family: v.$title-font;
+      margin-bottom: 0.5rem;
+    }
+    h3 {
+      //background-color: black;
+      background-color: red;
+      font-family: v.$primary-font;
+      display: flex;
+      align-items: center;
+      padding: 0 0.5rem;
+      border-radius: 1rem;
+    }
   }
   .mainInfoHolder {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-right: 3vw;
+    width: 100%;
     .mainInfo {
+      margin-left: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      gap: 1rem;
     }
     .imageSliderContainer {
-      width: 50%;
+      width: 120%;
       overflow: hidden;
       img {
         background-color: white;

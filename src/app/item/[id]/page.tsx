@@ -17,7 +17,10 @@ async function page({ params }: Props) {
     if (response.status == 200)
       return (
         <div className={styles.itemPage}>
-          <h1>{item.name}</h1>
+          <div className={styles.titleAndStockHolder}>
+            <h1>{item.name}</h1>
+            <h3>{item.stock} Available in stock</h3>
+          </div>
           <div className={styles.mainInfoHolder}>
             <ImageSlider images={item.images} />
             <div className={styles.mainInfo}></div>
@@ -34,3 +37,12 @@ async function page({ params }: Props) {
 }
 
 export default page;
+
+// {Object.entries(item.specifications).map((spec) => {
+//   const [unformattedTitle, description] = spec;
+//   const title = unformattedTitle
+//     .split("_") // Split the string by underscores
+//     .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
+//     .join(" ");
+//   return <div key={title + description}></div>;
+// })}

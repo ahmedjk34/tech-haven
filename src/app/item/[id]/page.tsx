@@ -57,10 +57,13 @@ async function page({ params }: Props) {
               </div>
             </div>
           </div>
-          <div className={styles.itemsHolder}>
-            {recommendedItems.map((item: ItemType) => (
-              <ItemCard item={item} key={item._id + "RECOMMENDED"} />
-            ))}
+          <div className={styles.recommendedItemsHolder}>
+            <h1>Recommended Items</h1>
+            <div className={styles.itemsHolder}>
+              {recommendedItems.map((item: ItemType) => (
+                <ItemCard item={item} key={item._id + "RECOMMENDED"} />
+              ))}
+            </div>
           </div>
         </>
       );

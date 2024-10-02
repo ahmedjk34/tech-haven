@@ -3,6 +3,7 @@ import styles from "./itemPage.module.scss";
 import axios from "axios";
 import { ItemType } from "@/util/Types";
 import ImageSlider from "./_components/ImageSlider";
+import ItemCard from "@/components/ItemCard/ItemCard";
 
 type Props = {
   params: { id: string };
@@ -10,22 +11,58 @@ type Props = {
 
 async function page({ params }: Props) {
   try {
-    const response = await axios.get(
+    const itemDataResponse = await axios.get(
       `http://localhost:3000/api/item/${params.id}`
     );
-    const item: ItemType = response.data;
-    if (response.status == 200)
+
+    const {
+      item,
+      recommendedItems,
+    }: {
+      item: ItemType;
+      recommendedItems: ItemType[];
+    } = itemDataResponse.data;
+
+    if (itemDataResponse.status == 200)
       return (
-        <div className={styles.itemPage}>
-          <div className={styles.titleAndStockHolder}>
-            <h1>{item.name}</h1>
-            <h3>{item.stock} Available in stock</h3>
+        <>
+          <div className={styles.itemPage}>
+            <div className={styles.infoHolder}>
+              <ImageSlider images={item.images} />
+              <div className={styles.titleAndStockHolder}>
+                <h1>{item.name}</h1>
+                <div>
+                  <h3>{item.stock} Available in stock</h3>
+                  <button>Add to cart +</button>
+                </div>
+              </div>
+              <div className={styles.mainInfo}>
+                <div className={styles.specificationTable}>
+                  {Object.entries(item.specifications).map((spec) => {
+                    const [unformattedTitle, description] = spec;
+                    const title = unformattedTitle
+                      .split("_") // Split the string by underscores
+                      .map(
+                        (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                      ) // Capitalize the first letter of each word
+                      .join(" ");
+                    return (
+                      <div key={title + description}>
+                        <p>{title}</p>
+                        <p>{description}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
           </div>
-          <div className={styles.mainInfoHolder}>
-            <ImageSlider images={item.images} />
-            <div className={styles.mainInfo}></div>
+          <div className={styles.itemsHolder}>
+            {recommendedItems.map((item: ItemType) => (
+              <ItemCard item={item} key={item._id + "RECOMMENDED"} />
+            ))}
           </div>
-        </div>
+        </>
       );
   } catch (error) {
     return (
@@ -37,12 +74,3 @@ async function page({ params }: Props) {
 }
 
 export default page;
-
-// {Object.entries(item.specifications).map((spec) => {
-//   const [unformattedTitle, description] = spec;
-//   const title = unformattedTitle
-//     .split("_") // Split the string by underscores
-//     .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
-//     .join(" ");
-//   return <div key={title + description}></div>;
-// })}

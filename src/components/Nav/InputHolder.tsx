@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./nav.module.scss";
+import { useRouter } from "next/navigation";
+import { ItemType } from "@/util/Types";
 
 type Props = {};
 
@@ -11,6 +13,7 @@ function InputHolder({}: Props) {
   const [debouncedTerm, setDebouncedTerm] = useState(searchTerm);
   const [loading, setLoading] = useState(false); // Loading state
   const [isFocused, setIsFocused] = useState(false); // Track if input is focused
+  const router = useRouter();
 
   // Handle input change
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,8 +91,15 @@ function InputHolder({}: Props) {
           <p>Loading...</p>
         ) : items.length > 0 ? (
           <ul className={styles.itemList}>
-            {items.map((item) => (
-              <li key={item._id} className={styles.item}>
+            {items.map((item: ItemType) => (
+              <li
+                key={item._id + item.name}
+                className={styles.item}
+                onClick={() => {
+                  router.push(`/item/${item._id}`);
+                  setSearchTerm("");
+                }}
+              >
                 {/* Display the first image, name, and price */}
                 <img
                   src={item.images?.[0]}

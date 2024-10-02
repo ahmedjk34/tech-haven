@@ -2,6 +2,7 @@
 import React from "react";
 import styles from "./nav.module.scss";
 import { useCart } from "../CartProvider/CartProvider";
+import { ContextType } from "../../util/Types";
 
 type Props = {
   active: boolean;
@@ -9,7 +10,8 @@ type Props = {
 };
 
 function CartWindow({ active, toggleActivity }: Props) {
-  const cartItems = useCart();
+  const { cart, setCart } = useCart(); // Access cart and setCart from context
+
   return (
     <div className={`${styles.cartWindow} ${active ? styles.active : ""}`}>
       <div className={styles.wrapper}>
@@ -19,7 +21,17 @@ function CartWindow({ active, toggleActivity }: Props) {
         >
           Close The Cart
         </h2>
-        <div>{cartItems.map((item) => item.name)}</div>
+        <div>
+          {cart.length > 0 ? (
+            cart.map((item: ContextType) => (
+              <div key={item.data._id?.toString()}>
+                {item.data.name} - Quantity: {item.quantity}
+              </div>
+            ))
+          ) : (
+            <p>Your cart is empty.</p>
+          )}
+        </div>
       </div>
     </div>
   );

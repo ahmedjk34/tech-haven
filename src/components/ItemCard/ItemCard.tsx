@@ -2,6 +2,7 @@ import { ItemType } from "@/util/Types";
 import styles from "./itemCard.module.scss";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   item: ItemType;
@@ -11,7 +12,7 @@ function ItemCard({ item }: Props) {
   const { name, images, _id, price, discount, subCategories } = item;
   const showImage = images[0];
   return (
-    <div className={styles.item}>
+    <Link className={styles.item} href={`/item/${item._id}`}>
       <div className={styles.imageHolder}>
         <Image src={showImage} alt={name} loading="lazy" layout="fill" />
       </div>
@@ -31,7 +32,7 @@ function ItemCard({ item }: Props) {
           ))}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

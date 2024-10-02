@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/pages/global-rules.scss";
 import Nav from "@/components/Nav/Nav";
+import CartProvider from "@/components/CartProvider/CartProvider";
 
 export const metadata: Metadata = {
   title: "Tech Haven - Your Ultimate PC Parts Destination",
@@ -18,10 +19,12 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body>
-        <Nav />
-        {children}
-      </body>
+      <CartProvider>
+        <body>
+          <Nav />
+          {children}
+        </body>
+      </CartProvider>
     </html>
   );
 }

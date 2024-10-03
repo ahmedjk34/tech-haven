@@ -22,7 +22,7 @@ export async function ItemsHolder({
       return (
         <div className={styles.itemsHolder}>
           {items?.map((item) => (
-            <ItemCard item={item} />
+            <ItemCard item={item} key={item._id + "SEARCH"} />
           ))}
         </div>
       );

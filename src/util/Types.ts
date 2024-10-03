@@ -18,6 +18,13 @@ export interface UserType {
   purchaseHistory: PurchaseHistory[];
 }
 
+export interface SessionUser {
+  id: string;
+  username: string;
+  wishlist: string[]; // Ensure this is correct
+  purchaseHistory: PurchaseHistory[]; // Ensure this is correct
+}
+
 export interface ItemType {
   _id?: ObjectId;
   name: string;

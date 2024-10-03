@@ -42,7 +42,7 @@ const subCategoriesFilterData = {
     brands: ["Samsung", "Seagate", "Crucial", "Kingston", "Western Digital"],
     subcategories: {
       Type: ["SSD", "HDD"], // Main storage types
-      FormFactor: ["M.2 SSD", "3.5-inch HDD", "PCIe SSD"], // Specific form factors
+      FormFactor: ["M.2 SSD", "3.5-inch", "PCIe SSD"], // Specific form factors
     },
   },
   Accessories: {

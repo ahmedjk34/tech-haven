@@ -80,51 +80,52 @@ function InputHolder({}: Props) {
         onChange={handleSearchChange}
         placeholder="Search..."
       />
-      <div
-        className={`${styles.searchPopUp} ${
-          isFocused && searchTerm && (loading || items.length > 0)
-            ? styles.active
-            : ""
-        }`} // Show popup only when focused AND searchTerm is not empty
-      >
-        {loading ? ( // Display loading indicator when loading
-          <p>Loading...</p>
-        ) : items.length > 0 ? (
-          <ul className={styles.itemList}>
-            {items.map((item: ItemType) => (
-              <li
-                key={item._id + item.name}
-                className={styles.item}
-                onClick={() => {
-                  router.push(`/item/${item._id}`);
-                  setSearchTerm("");
-                }}
-              >
-                {/* Display the first image, name, and price */}
-                <img
-                  src={item.images?.[0]}
-                  alt={item.name}
-                  className={styles.itemImage}
-                />
-                <div className={styles.itemInfo}>
-                  <h3>{item.name}</h3>
-                  <p>
-                    Price: $
-                    {calculatePrice(item.price, item.discount).toFixed(2)}
-                  </p>
-                  {item.discount > 0 && (
-                    <p className={styles.discountText}>
-                      Discount: {item.discount}%
-                    </p>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No items found</p>
-        )}
-      </div>
+      {isFocused && (loading || searchTerm) && (
+        <div
+          className={`${styles.searchPopUp} ${
+            isFocused && searchTerm ? styles.active : ""
+          }`}
+        >
+          {loading ? (
+            <p>Loading...</p>
+          ) : debouncedTerm && items.length === 0 ? (
+            <p>No items found</p>
+          ) : (
+            items.length > 0 && (
+              <ul className={styles.itemList}>
+                {items.map((item: ItemType) => (
+                  <li
+                    key={item._id + item.name}
+                    className={styles.item}
+                    onClick={() => {
+                      router.push(`/item/${item._id}`);
+                      setSearchTerm("");
+                    }}
+                  >
+                    <img
+                      src={item.images?.[0]}
+                      alt={item.name}
+                      className={styles.itemImage}
+                    />
+                    <div className={styles.itemInfo}>
+                      <h3>{item.name}</h3>
+                      <p>
+                        Price: $
+                        {calculatePrice(item.price, item.discount).toFixed(2)}
+                      </p>
+                      {item.discount > 0 && (
+                        <p className={styles.discountText}>
+                          Discount: {item.discount}%
+                        </p>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )
+          )}
+        </div>
+      )}
     </div>
   );
 }

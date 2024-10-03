@@ -45,6 +45,9 @@ function SideBar({}: Props) {
         setSubCategories(categoryData.subcategories);
         setBrands(categoryData.brands);
       }
+    } else {
+      setSubCategories(subCategoriesFilterData["General"].subcategories);
+      setBrands(subCategoriesFilterData["General"].brands);
     }
   }, [category, router]);
 

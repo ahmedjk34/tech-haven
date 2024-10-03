@@ -52,6 +52,29 @@ const subCategoriesFilterData = {
       Connection: ["Wired", "Wireless"],
     },
   },
+  General: {
+    brands: [
+      "MSI",
+      "Gigabyte",
+      "Asus",
+      "Intel",
+      "AMD",
+      "Samsung",
+      "Corsair",
+      "G.Skill",
+      "Team Group",
+      "Kingston",
+      "Crucial",
+      "Seagate",
+      "Western Digital",
+      "Logitech",
+      "Razer",
+      "SteelSeries",
+      "HyperX",
+      "Sony",
+    ],
+    subcategories: {},
+  },
 };
 
 export default subCategoriesFilterData;

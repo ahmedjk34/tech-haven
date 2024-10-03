@@ -129,5 +129,6 @@
     grid-template: 350px / repeat(auto-fill, minmax(350px, 1fr));
     grid-auto-rows: 300px;
     gap: 1.5rem 1.25rem;
+    font-family: v.$primary-font;
   }
 }

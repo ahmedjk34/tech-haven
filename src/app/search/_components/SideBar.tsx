@@ -126,7 +126,7 @@ function SideBar({}: Props) {
           </ol>
         </div>
         {Object.entries(subCategories).map(([title, items]) => (
-          <div key={title}>
+          <div key={title + "SUB CATEGORY"}>
             <h4
               className={styles.title}
               onClick={() =>

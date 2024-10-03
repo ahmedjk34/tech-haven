@@ -82,7 +82,7 @@ function createQuickNavigationItems() {
   return (
     <>
       {Array.from(categories.keys()).map((category, index) => (
-        <div key={index} className="quick-nav-item">
+        <div key={index + category}>
           {icons[index]}
           <Link href={`/search?category=${categories.get(category)}`}>
             {category}

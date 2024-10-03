@@ -1,15 +1,21 @@
 import { ObjectId } from "mongoose";
 
+export interface ContextType {
+  data: ItemType;
+  quantity: number;
+}
+
+export interface PurchaseHistory {
+  itemWithQuantity: ContextType;
+  timeOfPurchase: Date;
+}
 export interface UserType {
   _id: ObjectId;
   username: string;
   email: string;
   password: string;
   wishlist: ItemType[];
-  purchaseHistory: {
-    itemWithQuantity: ContextType;
-    timeOfPurchase: Date;
-  }[];
+  purchaseHistory: PurchaseHistory[];
 }
 
 export interface ItemType {
@@ -23,9 +29,4 @@ export interface ItemType {
   images: string[]; // Array of image URLs
   stock: number;
   discount: number;
-}
-
-export interface ContextType {
-  data: ItemType;
-  quantity: number;
 }

@@ -13,7 +13,7 @@ A PC parts e-commerce website where users can browse, compare, and purchase comp
 
 - **Product Catalog**: Extensive database of PC components with detailed specs, images, and pricing.
 - **Search and Filtering**: Advanced search and filtering options to help users find the exact parts they need.
-- **User Accounts**: Users can create accounts to save wishlists and cart
+- **User Accounts**: Users can create accounts to save wishlists and purchase history.
 - **Shopping Cart**: Secure and user-friendly shopping cart with real-time updates and checkout.
 - **Responsive Design**: Mobile-friendly design for seamless shopping across devices.
 - **Discount Codes and Promotions**: Implement functionality for promotional codes and seasonal discounts to attract and retain customers.

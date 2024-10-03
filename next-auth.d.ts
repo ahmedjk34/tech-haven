@@ -8,7 +8,7 @@ declare module "next-auth" {
       id: string;
       username: string;
       wishlist: any[]; // Define proper type if known
-      cart: any[]; // Define proper type if known
+      purchaseHistory: any[]; // Define proper type if known
     } & DefaultSession["user"];
   }
 
@@ -16,7 +16,7 @@ declare module "next-auth" {
     id: string;
     username: string;
     wishlist: any[]; // Define proper type if known
-    cart: any[]; // Define proper type if known
+    purchaseHistory: any[]; // Define proper type if known
   }
 }
 
@@ -25,6 +25,6 @@ declare module "next-auth/jwt" {
     id: string;
     username: string;
     wishlist: any[]; // Define proper type if known
-    cart: any[]; // Define proper type if known
+    purchaseHistory: any[]; // Define proper type if known
   }
 }

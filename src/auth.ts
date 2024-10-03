@@ -39,8 +39,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         let userData = {
           id: user._id.toString(),
           username: user.username,
-          cart: user.cart,
           wishlist: user.wishlist,
+          purchaseHistory: user.purchaseHistory,
         };
         return userData;
       },
@@ -52,7 +52,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.id = user.id as string;
         token.username = user.username;
         token.wishlist = user.wishlist;
-        token.cart = user.cart;
+        token.purchaseHistory = user.purchaseHistory;
       }
       return token;
     },
@@ -60,7 +60,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       session.user.id = token.id;
       session.user.username = token.username;
       session.user.wishlist = token.wishlist;
-      session.user.cart = token.cart;
+      session.user.purchaseHistory = token.purchaseHistory;
       return session;
     },
   },

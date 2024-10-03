@@ -7,7 +7,11 @@ import {
   calculateTotalPrice,
   formatPriceAfterDiscount,
 } from "@/util/priceUtil";
-import { addItemToCart, deleteItemFromCart } from "@/util/cartActions";
+import {
+  addItemToCart,
+  clearCart,
+  deleteItemFromCart,
+} from "@/util/cartActions";
 
 type Props = {
   active: boolean;
@@ -81,6 +85,17 @@ function CartWindow({ active, toggleActivity }: Props) {
             <h1 className={styles.emptyCartMessage}>Your cart is empty.</h1>
           )}
         </div>
+        {cart.length ? (
+          <h2
+            onClick={() => {
+              clearCart(setCart);
+              toggleActivity(false);
+            }}
+            className={styles.checkOut}
+          >
+            Checkout
+          </h2>
+        ) : null}
       </div>
     </div>
   );

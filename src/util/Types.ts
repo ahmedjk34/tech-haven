@@ -6,9 +6,9 @@ export interface UserType {
   email: string;
   password: string;
   wishlist: ItemType[];
-  cart: {
-    item: ItemType;
-    quantity: number;
+  purchaseHistory: {
+    itemWithQuantity: ContextType;
+    timeOfPurchase: Date;
   }[];
 }
 

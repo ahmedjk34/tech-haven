@@ -2,6 +2,14 @@ import { UserType } from "@/util/Types";
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
+const contextSchema = new Schema(
+  {
+    data: { type: Schema.Types.ObjectId, ref: "Item", required: true },
+    quantity: { type: Number, required: true },
+  },
+  { _id: false }
+);
+
 const userSchema = new Schema({
   username: {
     type: String,
@@ -22,17 +30,10 @@ const userSchema = new Schema({
       ref: "Item",
     },
   ],
-  cart: [
+  purchaseHistory: [
     {
-      item: {
-        type: Schema.Types.ObjectId,
-        ref: "Item",
-      },
-      quantity: {
-        type: Number,
-        required: true,
-        default: 1,
-      },
+      itemWithQuantity: { type: contextSchema, required: true },
+      timeOfPurchase: { type: Date, required: true },
     },
   ],
 });

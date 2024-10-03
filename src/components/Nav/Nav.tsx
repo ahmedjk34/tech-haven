@@ -4,11 +4,10 @@ import styles from "./nav.module.scss";
 import logo from "../../../public/logo.png";
 import Image from "next/image";
 import { CgShoppingCart, CgProfile } from "react-icons/cg";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import InputHolder from "./InputHolder";
 import CartWindow from "./CartWindow";
 import { SessionUser } from "@/util/Types";
-import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 
 type Props = {
@@ -18,8 +17,20 @@ type Props = {
 function Nav({ session }: Props) {
   const router = useRouter();
   const [isCartActive, setIsCartActive] = useState(false);
+  const pathname = usePathname();
   const user = session?.user as SessionUser | null;
   console.log(user);
+
+  const handleProfileClick = () => {
+    if (user) {
+      const params = new URLSearchParams(window.location.search);
+      params.set("modal", "true");
+      router.push(`${pathname}?${params.toString()}`);
+    } else {
+      router.push("/register");
+    }
+  };
+
   return (
     <>
       <div className={styles.nav}>
@@ -35,9 +46,7 @@ function Nav({ session }: Props) {
           <CgProfile
             size={30}
             className={styles.icon}
-            onClick={() => {
-              user ? "" : router.push("/register");
-            }}
+            onClick={handleProfileClick}
           />
         </div>
       </div>

@@ -4,6 +4,7 @@ import Nav from "@/components/Nav/Nav";
 import CartProvider from "@/components/CartProvider/CartProvider";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import UserModal from "@/components/UserModal/UserModal";
 
 export const metadata: Metadata = {
   title: "Tech Haven - Your Ultimate PC Parts Destination",
@@ -26,6 +27,7 @@ export default async function RootLayout({
         <body>
           <Nav session={session} />
           {children}
+          <UserModal />
         </body>
       </CartProvider>
     </html>

@@ -130,12 +130,12 @@
   color: black;
   background-color: white;
   z-index: 100;
-  width: clamp(20rem, 20vw, 40rem);
+  width: clamp(30rem, 30vw, 50rem);
   overflow: hidden;
-  transition: all 0.5s linear;
+  transition: all 0.4s linear;
   top: 0;
-  height: 100%;
-  transform: translateX(100%);
+  min-height: 100%;
+  //transform: translateX(100%);
   &.active {
     opacity: 1;
     transform: translateX(0);
@@ -169,15 +169,34 @@
       height: 100%;
       font-family: v.$primary-font;
       .cartItem {
-        display: flex;
+        display: grid;
+        grid-template: 1fr / 1fr 1.5fr;
         width: 100%;
         border: 1px solid black;
         .imageHolder {
-          width: 120%;
+          width: 100%;
           padding: 1rem;
           img {
             width: 100%;
             height: auto;
+          }
+        }
+        .cartItemInfo {
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+          div {
+            &:first-of-type {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              padding: 1rem;
+              .quantityControl {
+                background-color: v.$primary-color;
+                color: white;
+                padding: 0.5rem 1rem;
+              }
+            }
           }
         }
       }

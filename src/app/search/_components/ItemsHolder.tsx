@@ -21,9 +21,15 @@ export async function ItemsHolder({
     if (response.status == 200)
       return (
         <div className={styles.itemsHolder}>
-          {items?.map((item) => (
-            <ItemCard item={item} key={item._id + "SEARCH"} />
-          ))}
+          {items.length > 0 ? (
+            items?.map((item) => (
+              <ItemCard item={item} key={item._id + "SEARCH"} />
+            ))
+          ) : (
+            <h1 className={styles.noItemsMessage}>
+              No Item Match The Current Specifications
+            </h1>
+          )}
         </div>
       );
   } catch (error) {

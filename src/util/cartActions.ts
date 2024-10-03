@@ -49,3 +49,9 @@ export function deleteItemFromCart(
     return prevCart;
   });
 }
+
+export function clearCart(
+  setCart: React.Dispatch<React.SetStateAction<ContextType[]>>
+) {
+  setCart([]);
+}

@@ -21,9 +21,9 @@ function UserModal({}: Props) {
     params.delete("modal");
     router.push(`${pathname}?${params.toString()}`);
   };
+  console.log(session);
 
   const modal = searchParams.get("modal");
-
   return (
     <>
       {modal && (
@@ -70,7 +70,7 @@ function UserModal({}: Props) {
                 })}
               </div>
             ) : (
-              <div>Purches</div>
+              <div></div>
             )}
           </div>
         </dialog>
@@ -79,4 +79,45 @@ function UserModal({}: Props) {
   );
 }
 
+function formatDate(date: Date = new Date()): string {
+  const day = date.getDate();
+  const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getFullYear().toString().slice(-2); // Get last two digits of the year
+
+  // Function to add suffix to day (st, nd, rd, th)
+  const getDaySuffix = (day: number): string => {
+    if (day > 3 && day < 21) return "th"; // Covers 4th-20th
+    switch (day % 10) {
+      case 1:
+        return "st";
+      case 2:
+        return "nd";
+      case 3:
+        return "rd";
+      default:
+        return "th";
+    }
+  };
+
+  const dayWithSuffix = `${day}${getDaySuffix(day)}`;
+
+  return `${dayWithSuffix} of ${month}, ${year}`;
+}
 export default UserModal;
+
+// {user?.purchaseHistory.map((piece) => {
+//   const { itemWithQuantity, timeOfPurchase } = piece;
+//   const { data: item, quantity } = itemWithQuantity;
+//   console.log(item);
+//   return (
+//     <div>
+//       {/* img src={item.images[0]} alt={item.name}></img>
+//       <h1>{item.name}</h1>
+//       <div>
+//         <h3 className={styles.price}>
+//           {formatPriceAfterDiscount(item.price, item.discount)}$
+//         </h3>
+//       </div> */}
+//     </div>
+//   );
+// })}

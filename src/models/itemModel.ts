@@ -48,5 +48,5 @@ const itemSchema = new Schema({
 });
 
 const itemModel =
-  mongoose.models.item || mongoose.model<ItemType>("item", itemSchema);
+  mongoose?.models?.item || mongoose.model<ItemType>("item", itemSchema);
 export default itemModel;

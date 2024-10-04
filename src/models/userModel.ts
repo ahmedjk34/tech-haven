@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 
 const contextSchema = new Schema(
   {
-    data: { type: Schema.Types.ObjectId, ref: "item", required: true },
+    data: { type: Schema.Types.ObjectId, ref: itemModel, required: true },
     quantity: { type: Number, required: true },
   },
   { _id: false }
@@ -28,7 +28,7 @@ const userSchema = new Schema({
   wishlist: [
     {
       type: Schema.Types.ObjectId,
-      ref: "item",
+      ref: itemModel,
     },
   ],
   purchaseHistory: [
@@ -40,5 +40,5 @@ const userSchema = new Schema({
 });
 
 const userModel =
-  mongoose.models?.user || mongoose.model<UserType>("user", userSchema);
+  mongoose?.models?.user || mongoose.model<UserType>("user", userSchema);
 export default userModel;

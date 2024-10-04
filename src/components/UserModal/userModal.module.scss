@@ -1,3 +1,5 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
 .dialog {
   position: fixed;
   left: 0;
@@ -16,5 +18,42 @@
 .dialogContent {
   background-color: white;
   margin: auto;
-  padding: 2rem;
+  padding: 3rem;
+  width: clamp(40rem, 70vw, 60rem);
+  min-width: 60rem;
+  min-height: 90dvh;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px v.$first-hover-color; //?
+  font-family: v.$primary-font;
+  position: relative;
+  .closeButton {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    transition: transform 0.3s ease;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
+  }
+  .sectionSelectors {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    * {
+      flex: 1;
+      text-align: center;
+      border: 2px solid black;
+      box-shadow: 4px 6px v.$first-hover-color;
+      border-radius: 0.75rem;
+      transition: transform 0.3s ease;
+      &:hover {
+        transform: translateY(4px);
+        cursor: pointer;
+      }
+    }
+  }
 }

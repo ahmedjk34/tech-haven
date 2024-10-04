@@ -4,21 +4,18 @@ import React, { useState } from "react";
 import styles from "./userModal.module.scss";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { IoCloseSharp } from "react-icons/io5";
-import { Session } from "next-auth";
 import { SessionUser } from "@/util/Types";
 import { formatPriceAfterDiscount } from "@/util/priceUtil";
+import { useSession } from "next-auth/react";
 
-type Props = {
-  session: Session | null;
-};
-
-function UserModal({ session }: Props) {
+type Props = {};
+function UserModal({}: Props) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
   const [section, setSection] = useState("Wishlist");
+  const { data: session, update } = useSession();
   const user = session?.user as SessionUser | null;
-
   const handleCloseModal = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.delete("modal");

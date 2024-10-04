@@ -6,6 +6,7 @@ import ImageSlider from "./_components/ImageSlider";
 import ItemCard from "@/components/ItemCard/ItemCard";
 import ItemActionsHolder from "./_components/ItemActionsHolder";
 import { auth } from "@/auth";
+import { SessionProvider } from "next-auth/react";
 
 type Props = {
   params: { id: string };
@@ -34,7 +35,9 @@ async function page({ params }: Props) {
               <ImageSlider images={item.images} />
               <div className={styles.titleAndStockHolder}>
                 <h1>{item.name}</h1>
-                <ItemActionsHolder item={item} session={session} />
+                <SessionProvider session={session}>
+                  <ItemActionsHolder item={item} />
+                </SessionProvider>
               </div>
               <div className={styles.mainInfo}>
                 <div className={styles.specificationTable}>

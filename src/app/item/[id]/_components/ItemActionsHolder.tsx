@@ -5,27 +5,31 @@ import { useCart } from "@/components/CartProvider/CartProvider";
 import { addItemToCart } from "@/util/cartActions";
 import axios from "axios";
 import { Session } from "next-auth";
+import { getSession, useSession } from "next-auth/react";
 
 type Props = {
   item: ItemType;
-  session: Session | null;
 };
 
-function ItemActionsHolder({ item, session }: Props) {
+function ItemActionsHolder({ item }: Props) {
   const { cart, setCart } = useCart();
-
-  // Function to handle adding to cart
   const handleAddToCart = () => {
     addItemToCart(cart, setCart, item);
   };
+  const { data: session, update } = useSession();
 
-  // Function to handle adding to wishlist
   const handleAddToWishList = async () => {
     try {
       if (session?.user) {
         await axios.post(
           `http://localhost:3000/api/user/${session.user.id}/wishlist/${item._id}`
         );
+        // await update({
+        //   ...session,
+        //   user: {
+        //     ...session?.user,
+        //   },
+        // });
         alert(`${item.name} added to wishlist!`);
       } else {
         alert("You need to be logged in to add to wishlist.");

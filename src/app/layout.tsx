@@ -27,7 +27,9 @@ export default async function RootLayout({
         <body>
           <Nav session={session} />
           {children}
-          <UserModal session={session} />
+          <SessionProvider session={session}>
+            <UserModal />
+          </SessionProvider>
         </body>
       </CartProvider>
     </html>

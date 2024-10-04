@@ -4,7 +4,7 @@ import axios from "axios";
 import { ItemType } from "@/util/Types";
 import ImageSlider from "./_components/ImageSlider";
 import ItemCard from "@/components/ItemCard/ItemCard";
-import AddToCart from "./_components/AddToCart";
+import ItemActionsHolder from "./_components/ItemActionsHolder";
 import { auth } from "@/auth";
 
 type Props = {
@@ -34,11 +34,7 @@ async function page({ params }: Props) {
               <ImageSlider images={item.images} />
               <div className={styles.titleAndStockHolder}>
                 <h1>{item.name}</h1>
-                <div>
-                  <h3>{item.stock} Available in stock</h3>
-                  <AddToCart item={item} />
-                  {session?.user && <div>Add to wishlist +</div>}
-                </div>
+                <ItemActionsHolder item={item} session={session} />
               </div>
               <div className={styles.mainInfo}>
                 <div className={styles.specificationTable}>

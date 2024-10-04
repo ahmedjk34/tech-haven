@@ -1,10 +1,11 @@
 import { UserType } from "@/util/Types";
 import mongoose from "mongoose";
+import itemModel from "./itemModel";
 const { Schema } = mongoose;
 
 const contextSchema = new Schema(
   {
-    data: { type: Schema.Types.ObjectId, ref: "Item", required: true },
+    data: { type: Schema.Types.ObjectId, ref: "item", required: true },
     quantity: { type: Number, required: true },
   },
   { _id: false }
@@ -27,7 +28,7 @@ const userSchema = new Schema({
   wishlist: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Item",
+      ref: "item",
     },
   ],
   purchaseHistory: [

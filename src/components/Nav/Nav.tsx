@@ -49,7 +49,11 @@ function Nav({ session }: Props) {
           />
         </div>
       </div>
-      <CartWindow active={isCartActive} toggleActivity={setIsCartActive} />
+      <CartWindow
+        active={isCartActive}
+        toggleActivity={setIsCartActive}
+        session={session}
+      />
     </>
   );
 }

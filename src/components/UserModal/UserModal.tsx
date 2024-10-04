@@ -6,6 +6,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { IoCloseSharp } from "react-icons/io5";
 import { Session } from "next-auth";
 import { SessionUser } from "@/util/Types";
+import { formatPriceAfterDiscount } from "@/util/priceUtil";
 
 type Props = {
   session: Session | null;
@@ -41,7 +42,36 @@ function UserModal({ session }: Props) {
               </span>
             </h1>
             {section === "Wishlist" ? (
-              <div>{user?.id}</div>
+              <div className={styles.wishlistSection}>
+                {user?.wishlist.map((item) => {
+                  return (
+                    <div className={styles.wishlistItem}>
+                      <img src={item.images[0]} alt={item.name} />
+                      <div>
+                        <h1>{item.name}</h1>
+                        <div>
+                          <button
+                            onClick={() => router.push(`/item/${item._id}`)}
+                          >
+                            Go to Item
+                          </button>
+                          <button>Remove from wishlist</button>
+                          <h3 className={styles.price}>
+                            {formatPriceAfterDiscount(
+                              item.price,
+                              item.discount
+                            )}
+                            $
+                          </h3>
+                          <h3 className={styles.availableInStock}>
+                            {item.stock} Available in stock
+                          </h3>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             ) : (
               <div>Purches</div>
             )}

@@ -21,7 +21,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         await connectDB();
 
-        const user: UserType | null = await User.findOne({ email });
+        const user: UserType | null = await User.findOne({ email })
+          .populate("wishlist")
+          .populate("purchaseHistory");
 
         if (!user) {
           throw new Error("Invalid email or password");

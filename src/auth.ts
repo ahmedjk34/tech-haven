@@ -20,11 +20,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         await connectDB();
-
         const user: UserType | null = await User.findOne({ email })
-          .populate("wishlist")
-          .populate("purchaseHistory");
-
+          .populate({
+            path: "purchaseHistory",
+            populate: {
+              path: "itemWithQuantity.data",
+              model: "item",
+            },
+          })
+          .populate("wishlist");
         if (!user) {
           throw new Error("Invalid email or password");
         }
@@ -44,17 +48,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           wishlist: user.wishlist,
           purchaseHistory: user.purchaseHistory,
         };
+        console.log(user);
         return userData;
       },
     }),
   ],
   callbacks: {
-    jwt({ token, user }) {
+    jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id as string;
         token.username = user.username;
         token.wishlist = user.wishlist;
         token.purchaseHistory = user.purchaseHistory;
+      }
+      if (trigger === "update") {
+        return { ...token, ...session };
       }
       return token;
     },

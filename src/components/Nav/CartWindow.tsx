@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import axios from "axios";
 import styles from "./nav.module.scss";
 import { useCart } from "../CartProvider/CartProvider";
 import { ContextType } from "../../util/Types";
@@ -12,14 +13,33 @@ import {
   clearCart,
   deleteItemFromCart,
 } from "@/util/cartActions";
+import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
 
 type Props = {
   active: boolean;
   toggleActivity: React.Dispatch<React.SetStateAction<boolean>>;
+  session: Session | null;
 };
 
-function CartWindow({ active, toggleActivity }: Props) {
-  const { cart, setCart } = useCart(); // Access cart and setCart from context
+function CartWindow({ active, toggleActivity, session }: Props) {
+  const { cart, setCart } = useCart();
+  const handleCheckout = async () => {
+    try {
+      if (session?.user) {
+        const response = await axios.post(
+          `http://localhost:3000/api/user/${session?.user.id}/history`,
+          { cart }
+        );
+        console.log(cart);
+        console.log("Checkout successful:", response.data);
+      }
+      clearCart(setCart);
+      toggleActivity(false);
+    } catch (error) {
+      console.error("Error during checkout:", error);
+    }
+  };
 
   return (
     <div className={`${styles.cartWindow} ${active ? styles.active : ""}`}>
@@ -86,13 +106,7 @@ function CartWindow({ active, toggleActivity }: Props) {
           )}
         </div>
         {cart.length ? (
-          <h2
-            onClick={() => {
-              clearCart(setCart);
-              toggleActivity(false);
-            }}
-            className={styles.checkOut}
-          >
+          <h2 onClick={handleCheckout} className={styles.checkOut}>
             Checkout
           </h2>
         ) : null}

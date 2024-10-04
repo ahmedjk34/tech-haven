@@ -29,33 +29,49 @@
         font-family: v.$title-font;
         margin-bottom: 0.5rem;
       }
+      .common-flex-styles {
+        display: flex;
+        align-items: center;
+        font-family: inherit;
+        padding: 1rem;
+        border-radius: 1rem;
+        font-weight: 600;
+        transition: all 0.2s linear;
+
+        &:hover {
+          cursor: pointer;
+          background-color: goldenrod;
+        }
+      }
       div {
         display: flex;
         gap: 1rem;
+        font-family: v.$primary-font;
         h3 {
+          @extend .common-flex-styles;
           background-color: red;
-          font-family: v.$primary-font;
-          display: flex;
-          align-items: center;
           width: fit-content;
           padding: 0.75rem;
           border-radius: 1rem;
         }
+
         button {
           outline: none;
           border: none;
           color: inherit;
-          font-family: v.$primary-font;
+          font-family: inherit;
           background-color: green;
-          padding: 1rem;
           font-size: large;
           font-weight: 600;
-          border-radius: 1rem;
-          transition: all 0.2s linear;
+          @extend .common-flex-styles;
           &:hover {
-            cursor: pointer;
             background-color: goldenrod;
           }
+        }
+
+        div {
+          background-color: v.$first-hover-color;
+          @extend .common-flex-styles;
         }
       }
     }

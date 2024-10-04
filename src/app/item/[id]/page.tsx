@@ -5,6 +5,7 @@ import { ItemType } from "@/util/Types";
 import ImageSlider from "./_components/ImageSlider";
 import ItemCard from "@/components/ItemCard/ItemCard";
 import AddToCart from "./_components/AddToCart";
+import { auth } from "@/auth";
 
 type Props = {
   params: { id: string };
@@ -23,6 +24,7 @@ async function page({ params }: Props) {
       item: ItemType;
       recommendedItems: ItemType[];
     } = itemDataResponse.data;
+    const session = await auth();
 
     if (itemDataResponse.status == 200)
       return (
@@ -35,6 +37,7 @@ async function page({ params }: Props) {
                 <div>
                   <h3>{item.stock} Available in stock</h3>
                   <AddToCart item={item} />
+                  {session?.user && <div>Add to wishlist +</div>}
                 </div>
               </div>
               <div className={styles.mainInfo}>

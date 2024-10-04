@@ -19,7 +19,6 @@ function Nav({ session }: Props) {
   const [isCartActive, setIsCartActive] = useState(false);
   const pathname = usePathname();
   const user = session?.user as SessionUser | null;
-  console.log(user);
 
   const handleProfileClick = () => {
     if (user) {

@@ -9,7 +9,7 @@ export async function POST(
   const { userId, itemId } = params;
   try {
     if (
-      !mongoose.Types.ObjectId.isValid(userId) &&
+      !mongoose.Types.ObjectId.isValid(userId) ||
       !mongoose.Types.ObjectId.isValid(itemId)
     )
       throw new Error("Not Valid MongoDB Object ID");

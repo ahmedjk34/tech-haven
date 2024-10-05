@@ -80,7 +80,7 @@ function InputHolder({}: Props) {
         onChange={handleSearchChange}
         placeholder="Search..."
       />
-      {isFocused && (loading || searchTerm) && (
+      {isFocused && (loading || searchTerm) && debouncedTerm && (
         <div
           className={`${styles.searchPopUp} ${
             isFocused && searchTerm ? styles.active : ""
@@ -88,7 +88,7 @@ function InputHolder({}: Props) {
         >
           {loading ? (
             <p>Loading...</p>
-          ) : debouncedTerm && items.length === 0 ? (
+          ) : items.length === 0 ? (
             <p>No items found</p>
           ) : (
             items.length > 0 && (

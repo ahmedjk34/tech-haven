@@ -54,15 +54,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     jwt({ token, user, trigger, session }) {
+      if (trigger === "update") {
+        console.log("update");
+        return { ...token, ...session.user };
+      }
       if (user) {
         token.id = user.id as string;
         token.username = user.username;
         token.wishlist = user.wishlist;
         token.purchaseHistory = user.purchaseHistory;
-      }
-      if (trigger === "update") {
-        console.log("update");
-        return { ...token, ...session.user };
       }
 
       return token;

@@ -48,7 +48,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           wishlist: user.wishlist,
           purchaseHistory: user.purchaseHistory,
         };
-        console.log(user);
         return userData;
       },
     }),
@@ -62,8 +61,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.purchaseHistory = user.purchaseHistory;
       }
       if (trigger === "update") {
-        return { ...token, ...session };
+        console.log("update");
+        return { ...token, ...session.user };
       }
+
       return token;
     },
     session({ session, token }) {

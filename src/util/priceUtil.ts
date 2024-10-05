@@ -12,14 +12,16 @@ export function calculateTotalPrice(price: number, quantity: number): string {
   return (price * quantity).toFixed(2);
 }
 
-export function extractTotalPriceFromCart(cart: ContextType[]): number {
-  return cart.reduce((accumulator: number, current: ContextType) => {
-    const priceAfterDiscount = Number(
-      formatPriceAfterDiscount(current.data.price, current.data.price)
-    );
-    const totalPrice = Number(
-      calculateTotalPrice(priceAfterDiscount, current.quantity)
-    );
-    return accumulator + totalPrice;
-  }, 0);
+export function extractTotalPriceFromCart(cart: ContextType[]): string {
+  return cart
+    .reduce((accumulator: number, current: ContextType) => {
+      const priceAfterDiscount = Number(
+        formatPriceAfterDiscount(current.data.price, current.data.discount)
+      );
+      const totalPrice = Number(
+        calculateTotalPrice(priceAfterDiscount, current.quantity)
+      );
+      return accumulator + totalPrice;
+    }, 0)
+    .toFixed(2);
 }

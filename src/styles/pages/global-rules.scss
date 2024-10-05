@@ -11,9 +11,9 @@ body {
   background-color: v.$backgroundColor;
   overflow-x: hidden;
 }
-// html {
-//   scroll-behavior: smooth;
-// }
-// ::-webkit-scrollbar {
-//   display: none;
-// }
+html {
+  scroll-behavior: smooth;
+}
+::-webkit-scrollbar {
+  display: none;
+}

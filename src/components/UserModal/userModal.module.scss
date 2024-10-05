@@ -23,141 +23,201 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.dialogContent {
-  background-color: white;
-  margin: auto;
-  padding: 3rem;
-  width: clamp(40rem, 70vw, 60rem);
-  min-width: 60rem;
-  min-height: 90dvh;
-  border-radius: 1rem;
-  box-shadow: 0 0 20px v.$first-hover-color; //?
-  font-family: v.$primary-font;
-  position: relative;
-  .closeButton {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    transition: transform 0.3s ease;
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.1);
-    }
-  }
-  .sectionSelectors {
-    display: flex;
-    width: 100%;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    * {
-      flex: 1;
-      text-align: center;
-      border: 2px solid black;
-      box-shadow: 4px 6px v.$first-hover-color;
-      border-radius: 0.75rem;
+  .dialogContent {
+    background-color: white;
+    margin: auto;
+    padding: 3rem;
+    width: clamp(50rem, 65vw, 60rem);
+    min-height: 90dvh;
+    border-radius: 1rem;
+    box-shadow: 0 0 20px v.$first-hover-color; //?
+    font-family: v.$primary-font;
+    position: relative;
+    .closeButton {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
       transition: transform 0.3s ease;
       &:hover {
-        transform: translateY(4px);
         cursor: pointer;
+        transform: scale(1.1);
       }
     }
-  }
-
-  .itemBase {
-    display: flex;
-    border: 2px solid black;
-    padding: 1rem;
-    width: 100%;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-      background-color: rgba(250, 250, 250);
-      transform: scale(1.025);
-    }
-
-    img {
-      width: 30%;
-      height: auto;
-      background-color: white;
-    }
-  }
-  .wishlistSection {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-
-    .wishlistItem {
-      @extend .itemBase;
-      &.fadeOut {
-        animation: fadeOut 1s forwards;
-      }
-      & > div {
-        width: 100%;
-
-        h1 {
-          font-family: v.$title-font;
-          text-align: center;
+    .sectionSelectors {
+      display: flex;
+      width: 100%;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      * {
+        flex: 1;
+        text-align: center;
+        border: 2px solid black;
+        box-shadow: 4px 6px v.$first-hover-color;
+        border-radius: 0.75rem;
+        transition: transform 0.3s ease;
+        &:hover {
+          transform: translateY(4px);
+          cursor: pointer;
         }
+      }
+    }
 
-        div {
-          display: grid;
-          margin-top: 1rem;
-          gap: 1rem;
-          grid-template: 1fr 1fr / 1fr 1fr;
-          vertical-align: baseline;
-          text-align: center;
-          height: 100%;
+    .itemBase {
+      display: flex;
+      border: 2px solid black;
+      padding: 1rem;
+      width: 100%;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        background-color: rgba(250, 250, 250);
+        transform: scale(1.025);
+      }
+
+      img {
+        width: 30%;
+        height: auto;
+        background-color: white;
+      }
+    }
+    .wishlistSection {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      .wishlistItem {
+        @extend .itemBase;
+        &.fadeOut {
+          animation: fadeOut 1s forwards;
+        }
+        & > div {
           width: 100%;
-          padding: 1rem;
-          justify-items: center;
 
-          button {
-            @include m.categoryGradiant;
-            outline: none;
-            border: none;
-            color: white;
-            font-family: v.$primary-font;
-            font-weight: 600;
-            border-radius: 1rem;
-            width: 60%;
-            height: 3rem;
-            padding: 0.5rem 0;
-            border: 1px solid white;
+          h1 {
+            font-family: v.$title-font;
+            text-align: center;
+          }
 
-            &:hover {
-              cursor: pointer;
+          div {
+            display: grid;
+            margin-top: 1rem;
+            gap: 1rem;
+            grid-template: 1fr 1fr / 1fr 1fr;
+            vertical-align: baseline;
+            text-align: center;
+            height: 100%;
+            width: 100%;
+            padding: 1rem;
+            justify-items: center;
+
+            button {
+              @include m.categoryGradiant;
+              outline: none;
+              border: none;
+              color: white;
+              font-family: v.$primary-font;
+              font-weight: 600;
+              border-radius: 1rem;
+              width: 60%;
+              height: 3rem;
+              padding: 0.5rem 0;
+              border: 1px solid white;
+
+              &:hover {
+                cursor: pointer;
+              }
+            }
+
+            .availableInStock {
+              color: red;
+            }
+
+            .price {
+              color: green;
             }
           }
+        }
+      }
+    }
 
-          .availableInStock {
-            color: red;
-          }
+    .purchaseHistorySection {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
 
-          .price {
-            color: green;
+      .purchaseHistoryItem {
+        @extend .itemBase;
+        align-items: center;
+        text-align: center;
+
+        .price {
+          color: green;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .dialog {
+    padding: 1.5rem;
+    .dialogContent {
+      width: 100dvw;
+      .sectionSelectors {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        * {
+          width: 75%;
+        }
+      }
+      .itemBase {
+        flex-direction: column;
+        align-items: center;
+        img {
+          width: 60%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .dialog {
+    padding: 1.5rem;
+    .dialogContent {
+      .wishlistSection {
+        .wishlistItem {
+          & > div {
+            width: 100%;
+            div {
+              gap: 1rem;
+              grid-template: 1fr 1fr 1fr 1fr/ 1fr;
+              padding: 0.5rem;
+              align-items: center;
+
+              button {
+                width: 100%;
+              }
+            }
           }
         }
       }
     }
   }
+}
 
-  .purchaseHistorySection {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-
-    .purchaseHistoryItem {
-      @extend .itemBase;
-      align-items: center;
-      text-align: center;
-
-      .price {
-        color: green;
+@media screen and (max-width: 550px) {
+  .dialog {
+    padding: 1.5rem;
+    .dialogContent {
+      .itemBase {
+        img {
+          width: 85%;
+        }
       }
     }
   }

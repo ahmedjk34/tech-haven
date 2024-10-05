@@ -28,6 +28,25 @@
       h1 {
         font-family: v.$title-font;
         margin-bottom: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+
+        div {
+          .originalPrice {
+            color: gray;
+            text-decoration: line-through;
+            text-decoration-color: gray;
+            text-decoration-style: dashed;
+            margin-right: 0.5rem;
+          }
+
+          .discountedPrice {
+            vertical-align: middle;
+            color: green;
+          }
+        }
       }
       .common-flex-styles {
         display: flex;

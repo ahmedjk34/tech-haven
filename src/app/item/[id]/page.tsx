@@ -7,6 +7,7 @@ import ItemCard from "@/components/ItemCard/ItemCard";
 import ItemActionsHolder from "./_components/ItemActionsHolder";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
+import { formatPriceAfterDiscount } from "@/util/priceUtil";
 
 type Props = {
   params: { id: string };
@@ -34,7 +35,16 @@ async function page({ params }: Props) {
             <div className={styles.infoHolder}>
               <ImageSlider images={item.images} />
               <div className={styles.titleAndStockHolder}>
-                <h1>{item.name}</h1>
+                <h1>
+                  {item.name}{" "}
+                  <div>
+                    <span className={styles.originalPrice}>{item.price}$</span>{" "}
+                    <span className={styles.discountedPrice}>
+                      {formatPriceAfterDiscount(item.price, item.discount)}$
+                    </span>
+                  </div>
+                </h1>
+
                 <ItemActionsHolder item={item} />
               </div>
               <div className={styles.mainInfo}>

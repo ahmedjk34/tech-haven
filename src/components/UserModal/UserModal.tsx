@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import styles from "./userModal.module.scss";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
@@ -17,18 +16,20 @@ function UserModal({}: Props) {
   const [section, setSection] = useState("Wishlist");
   const { data: session, update } = useSession();
   const [user, setUser] = useState(session?.user);
-  const [triggerFadeOutStyle, setTriggerFadeOutStyle] = useState(false);
+  const [itemBeingRemoved, setItemBeingRemoved] = useState<string | null>(null);
+
   const handleCloseModal = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.delete("modal");
     router.push(`${pathname}?${params.toString()}`);
   };
+
   useEffect(() => {
     setUser(session?.user);
-    console.log("UPDATED");
   }, [session]);
+
   async function handleDeleteItem(itemId: string) {
-    setTriggerFadeOutStyle(true);
+    setItemBeingRemoved(itemId); // Set the item being removed
     await axios.delete(
       `http://localhost:3000/api/user/${user?.id}/wishlist/${itemId}`
     );
@@ -41,7 +42,9 @@ function UserModal({}: Props) {
         ),
       },
     });
+    setItemBeingRemoved(null); // Reset after removal
   }
+
   const modal = searchParams.get("modal");
   return (
     <>
@@ -63,7 +66,7 @@ function UserModal({}: Props) {
                   return (
                     <div
                       className={`${styles.wishlistItem} ${
-                        triggerFadeOutStyle ? styles.fadeOut : ""
+                        itemBeingRemoved === item._id ? styles.fadeOut : ""
                       }`}
                       key={uuid4()}
                     >

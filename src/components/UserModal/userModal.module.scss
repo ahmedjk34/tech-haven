@@ -4,9 +4,11 @@
 @keyframes fadeOut {
   from {
     opacity: 1;
+    transform: scale(1);
   }
   to {
     opacity: 0;
+    transform: scale(1.025);
   }
 }
 
@@ -91,7 +93,8 @@
       .wishlistItem {
         @extend .itemBase;
         &.fadeOut {
-          animation: fadeOut 1s forwards;
+          animation: fadeOut 0.2s forwards;
+          scale: 1.025;
         }
         & > div {
           width: 100%;

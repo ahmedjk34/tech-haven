@@ -38,7 +38,9 @@ async function page({ params }: Props) {
                 <h1>
                   {item.name}{" "}
                   <div>
-                    <span className={styles.originalPrice}>{item.price}$</span>{" "}
+                    <span className={styles.originalPrice}>
+                      {item.discount != 0 ? `${item.price}$` : ""}
+                    </span>{" "}
                     <span className={styles.discountedPrice}>
                       {formatPriceAfterDiscount(item.price, item.discount)}$
                     </span>

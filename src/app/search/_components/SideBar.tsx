@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "../searchPage.module.scss";
 import MultiRangeSlider from "multi-range-slider-react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -8,14 +8,16 @@ import subCategoriesFilterData from "./data";
 type Props = {};
 
 function SideBar({}: Props) {
-  const [minValue, setMinValue] = useState(50);
-  const [maxValue, setMaxValue] = useState(1000);
-  const handleInput = (e: any) => {
-    setMinValue(e.minValue);
-    setMaxValue(e.maxValue);
-  };
-
   const searchParams = useSearchParams();
+  const [minValue, setMinValue] = useState(
+    parseInt(searchParams.get("minPrice") ?? "50", 10)
+  );
+  const [maxValue, setMaxValue] = useState(
+    parseInt(searchParams.get("maxPrice") ?? "1000", 10)
+  );
+  const router = useRouter();
+  const category = searchParams.get("category");
+
   const [subCategories, setSubCategories] = useState<{
     [key: string]: string[];
   }>({});
@@ -23,16 +25,37 @@ function SideBar({}: Props) {
   const [selectedItems, setSelectedItems] = useState<{
     [group: string]: string;
   }>({});
-  const [activeGroup, setActiveGroup] = useState<string | null>(null); // New state to track active group
-  const router = useRouter();
-  const category = searchParams.get("category");
+  const [activeGroup, setActiveGroup] = useState<string | null>(null);
+
+  // Ref to store the debounce timer
+  const debounceTimer = useRef<NodeJS.Timeout | null>(null);
+
+  // Debounced function to handle URL update
+  const updatePriceParams = (min: number, max: number) => {
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set("minPrice", String(min));
+    searchParams.set("maxPrice", String(max));
+
+    router.push(`${window.location.pathname}?${searchParams.toString()}`);
+  };
+
+  // Handle input with debounce
+  const handleInput = (e: any) => {
+    setMinValue(e.minValue);
+    setMaxValue(e.maxValue);
+
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+
+    debounceTimer.current = setTimeout(() => {
+      updatePriceParams(e.minValue, e.maxValue);
+    }, 500); // Adjust the debounce delay as needed
+  };
 
   // Clear URL parameters and reset selectedItems on page load
   useEffect(() => {
-    // Reset selected items to an empty object
     setSelectedItems({});
-
-    // Clear URL parameters for 'subCategories' and 'brand'
     const searchParams = new URLSearchParams(window.location.search);
     searchParams.delete("subCategories");
     searchParams.delete("brand");
@@ -53,7 +76,6 @@ function SideBar({}: Props) {
 
   const handleSelection = (group: string, value: string) => {
     const updatedItems = { ...selectedItems, [group]: value };
-
     setSelectedItems(updatedItems);
 
     const searchParams = new URLSearchParams(window.location.search);
@@ -61,7 +83,6 @@ function SideBar({}: Props) {
     if (group === "brand") {
       searchParams.set("brand", value);
     } else {
-      // Handle subCategories parameter
       const subCategoryValues = Object.keys(updatedItems)
         .filter((key) => key !== "brand")
         .map((key) => updatedItems[key]);
@@ -90,9 +111,7 @@ function SideBar({}: Props) {
           barInnerColor="green"
           minValue={minValue}
           maxValue={maxValue}
-          onInput={(e) => {
-            handleInput(e);
-          }}
+          onInput={(e) => handleInput(e)}
         />
         <h4>
           {minValue}$ - {maxValue}$
@@ -105,13 +124,11 @@ function SideBar({}: Props) {
             className={styles.title}
             onClick={() =>
               setActiveGroup(activeGroup === "Brands" ? null : "Brands")
-            } // Toggle active state for Brands
+            }
           >
             Brands
           </h4>
           <ol className={`${activeGroup === "Brands" ? styles.active : ""}`}>
-            {" "}
-            {/* Apply "active" class if it's the active group */}
             {brands.map((brand) => (
               <li key={brand + "BRAND"}>
                 <label>
@@ -134,7 +151,7 @@ function SideBar({}: Props) {
               className={styles.title}
               onClick={() =>
                 setActiveGroup(activeGroup === title ? null : title)
-              } // Toggle active state for each subcategory
+              }
             >
               {title}
             </h4>

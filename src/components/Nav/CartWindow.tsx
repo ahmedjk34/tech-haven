@@ -19,11 +19,11 @@ import { Session } from "next-auth";
 type Props = {
   active: boolean;
   toggleActivity: React.Dispatch<React.SetStateAction<boolean>>;
-  session: Session | null;
 };
 
-function CartWindow({ active, toggleActivity, session }: Props) {
+function CartWindow({ active, toggleActivity }: Props) {
   const { cart, setCart } = useCart();
+  const { data: session, update } = useSession();
   const handleCheckout = async () => {
     try {
       if (session?.user) {
@@ -39,6 +39,8 @@ function CartWindow({ active, toggleActivity, session }: Props) {
       console.error("Error during checkout:", error);
     }
   };
+
+  async function handlePurchaseItems() {}
 
   return (
     <div className={`${styles.cartWindow} ${active ? styles.active : ""}`}>

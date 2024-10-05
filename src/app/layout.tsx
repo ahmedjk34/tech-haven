@@ -23,15 +23,15 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <CartProvider>
-        <body>
-          <Nav session={session} />
-          {children}
-          <SessionProvider session={session}>
+      <SessionProvider session={session}>
+        <CartProvider>
+          <body>
+            <Nav />
+            {children}
             <UserModal />
-          </SessionProvider>
-        </body>
-      </CartProvider>
+          </body>
+        </CartProvider>
+      </SessionProvider>
     </html>
   );
 }

@@ -9,15 +9,15 @@ import InputHolder from "./InputHolder";
 import CartWindow from "./CartWindow";
 import { SessionUser } from "@/util/Types";
 import { Session } from "next-auth";
+import { useSession } from "next-auth/react";
 
-type Props = {
-  session: Session | null;
-};
+type Props = {};
 
-function Nav({ session }: Props) {
+function Nav({}: Props) {
   const router = useRouter();
   const [isCartActive, setIsCartActive] = useState(false);
   const pathname = usePathname();
+  const { data: session } = useSession();
   const user = session?.user as SessionUser | null;
 
   const handleProfileClick = () => {
@@ -49,11 +49,7 @@ function Nav({ session }: Props) {
           />
         </div>
       </div>
-      <CartWindow
-        active={isCartActive}
-        toggleActivity={setIsCartActive}
-        session={session}
-      />
+      <CartWindow active={isCartActive} toggleActivity={setIsCartActive} />
     </>
   );
 }

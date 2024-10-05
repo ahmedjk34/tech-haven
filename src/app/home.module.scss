@@ -4,7 +4,7 @@
   min-height: 100dvh;
   width: 100dvw;
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
   background-color: v.$backgroundColor;
   a {
     //to center the icons & reset Link styles
@@ -16,7 +16,7 @@
     top: 50%;
     left: 50%;
     width: 100dvw;
-    height: 110dvh;
+    min-height: 110dvh;
     transform: translate(-50%, -50%);
     overflow: hidden;
     .backgroundVideo {
@@ -106,6 +106,9 @@
 
 @media screen and (max-width: 900px) {
   .home {
+    .videoContainer {
+      top: 0;
+    }
     .mainContent {
       flex-direction: column;
       .informationSection {

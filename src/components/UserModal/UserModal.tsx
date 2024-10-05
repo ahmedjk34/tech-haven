@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./userModal.module.scss";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { IoCloseSharp } from "react-icons/io5";
-import { SessionUser } from "@/util/Types";
 import { formatPriceAfterDiscount } from "@/util/priceUtil";
 import { useSession } from "next-auth/react";
+import uuid4 from "uuid4";
 
 type Props = {};
 function UserModal({}: Props) {
@@ -15,12 +15,16 @@ function UserModal({}: Props) {
   const router = useRouter();
   const [section, setSection] = useState("Wishlist");
   const { data: session, update } = useSession();
-  const user = session?.user as SessionUser | null;
+  const [user, setUser] = useState(session?.user);
   const handleCloseModal = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.delete("modal");
     router.push(`${pathname}?${params.toString()}`);
   };
+  useEffect(() => {
+    setUser(session?.user);
+    console.log("UPDATED");
+  }, [session]);
 
   const modal = searchParams.get("modal");
   return (
@@ -41,7 +45,7 @@ function UserModal({}: Props) {
               <div className={styles.wishlistSection}>
                 {user?.wishlist.map((item) => {
                   return (
-                    <div className={styles.wishlistItem}>
+                    <div className={styles.wishlistItem} key={uuid4()}>
                       <img src={item.images[0]} alt={item.name} />
                       <div>
                         <h1>{item.name}</h1>
@@ -74,7 +78,7 @@ function UserModal({}: Props) {
                   const { itemWithQuantity, timeOfPurchase } = piece;
                   const { data: item, quantity } = itemWithQuantity;
                   return (
-                    <div className={styles.purchaseHistoryItem}>
+                    <div className={styles.purchaseHistoryItem} key={uuid4()}>
                       <img src={item.images[0]} alt={item.name} />
                       <h1>{item.name}</h1>
                       <div>

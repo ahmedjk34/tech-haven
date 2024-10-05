@@ -21,7 +21,6 @@ function UserModal({}: Props) {
     params.delete("modal");
     router.push(`${pathname}?${params.toString()}`);
   };
-  console.log(session);
 
   const modal = searchParams.get("modal");
   return (
@@ -70,7 +69,26 @@ function UserModal({}: Props) {
                 })}
               </div>
             ) : (
-              <div></div>
+              <div className={styles.purchaseHistorySection}>
+                {user?.purchaseHistory.map((piece) => {
+                  const { itemWithQuantity, timeOfPurchase } = piece;
+                  const { data: item, quantity } = itemWithQuantity;
+                  return (
+                    <div className={styles.purchaseHistoryItem}>
+                      <img src={item.images[0]} alt={item.name} />
+                      <h1>{item.name}</h1>
+                      <div>
+                        <h3 className={styles.price}>
+                          Price:
+                          {formatPriceAfterDiscount(item.price, item.discount)}$
+                        </h3>
+                        <h3>Quantity: {quantity}</h3>
+                        <h3>Purchased on: {formatDate(timeOfPurchase)}</h3>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             )}
           </div>
         </dialog>
@@ -79,14 +97,15 @@ function UserModal({}: Props) {
   );
 }
 
-function formatDate(date: Date = new Date()): string {
-  const day = date.getDate();
-  const month = date.toLocaleString("default", { month: "long" });
-  const year = date.getFullYear().toString().slice(-2); // Get last two digits of the year
+function formatDate(date: string | Date = new Date()): string {
+  const dateObj = typeof date === "string" ? new Date(date) : date;
 
-  // Function to add suffix to day (st, nd, rd, th)
+  const day = dateObj.getDate();
+  const month = dateObj.toLocaleString("default", { month: "long" });
+  const year = dateObj.getFullYear();
+
   const getDaySuffix = (day: number): string => {
-    if (day > 3 && day < 21) return "th"; // Covers 4th-20th
+    if (day > 3 && day < 21) return "th";
     switch (day % 10) {
       case 1:
         return "st";
@@ -103,21 +122,5 @@ function formatDate(date: Date = new Date()): string {
 
   return `${dayWithSuffix} of ${month}, ${year}`;
 }
-export default UserModal;
 
-// {user?.purchaseHistory.map((piece) => {
-//   const { itemWithQuantity, timeOfPurchase } = piece;
-//   const { data: item, quantity } = itemWithQuantity;
-//   console.log(item);
-//   return (
-//     <div>
-//       {/* img src={item.images[0]} alt={item.name}></img>
-//       <h1>{item.name}</h1>
-//       <div>
-//         <h3 className={styles.price}>
-//           {formatPriceAfterDiscount(item.price, item.discount)}$
-//         </h3>
-//       </div> */}
-//     </div>
-//   );
-// })}
+export default UserModal;

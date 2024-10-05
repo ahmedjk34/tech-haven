@@ -12,8 +12,8 @@ export async function GET(request: NextRequest) {
     const subCategories =
       searchParams.getAll("subCategories")[0]?.split(",") || [];
     const brand = searchParams.get("brand");
-    const minPrice = parseFloat(searchParams.get("minPrice") || "0");
-    const maxPrice = parseFloat(searchParams.get("maxPrice") || "Infinity");
+    const minPrice = Number(searchParams.get("minPrice"));
+    const maxPrice = Number(searchParams.get("maxPrice"));
 
     const query: any = {};
 
@@ -33,13 +33,16 @@ export async function GET(request: NextRequest) {
     const items = await itemModel.find(query);
 
     // Filter items based on price after discount
-    const filteredItems = items.filter((item) => {
-      const priceAfterDiscount = parseFloat(
-        formatPriceAfterDiscount(item.price, item.discount)
-      );
-      return priceAfterDiscount >= minPrice && priceAfterDiscount <= maxPrice;
-    });
-    return NextResponse.json(filteredItems);
+    if (minPrice && maxPrice) {
+      const filteredItems = items.filter((item) => {
+        const priceAfterDiscount = parseFloat(
+          formatPriceAfterDiscount(item.price, item.discount)
+        );
+        return priceAfterDiscount >= minPrice && priceAfterDiscount <= maxPrice;
+      });
+      return NextResponse.json(filteredItems);
+    }
+    return NextResponse.json(items);
   } catch (error: unknown) {
     return NextResponse.json(
       { error: `An error occurred: ${error}` },

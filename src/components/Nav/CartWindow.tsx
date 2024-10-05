@@ -31,6 +31,23 @@ function CartWindow({ active, toggleActivity }: Props) {
           `http://localhost:3000/api/user/${session?.user.id}/history`,
           { cart }
         );
+        const purchaseHistory = cart.map((item) => ({
+          itemWithQuantity: {
+            data: item.data,
+            quantity: item.quantity,
+          },
+          timeOfPurchase: new Date(),
+        }));
+        await update({
+          ...session,
+          user: {
+            ...session?.user,
+            purchaseHistory: [
+              ...session?.user.purchaseHistory,
+              ...purchaseHistory,
+            ],
+          },
+        });
         console.log("Checkout successful:", response.data);
       }
       clearCart(setCart);
@@ -39,8 +56,7 @@ function CartWindow({ active, toggleActivity }: Props) {
       console.error("Error during checkout:", error);
     }
   };
-
-  async function handlePurchaseItems() {}
+  console.log(session?.user.purchaseHistory);
 
   return (
     <div className={`${styles.cartWindow} ${active ? styles.active : ""}`}>

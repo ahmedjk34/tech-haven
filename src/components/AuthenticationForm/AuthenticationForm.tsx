@@ -1,7 +1,7 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import styles from "./authenticationForm.module.scss";
 import Link from "next/link";
-import { login, register } from "@/actions/user";
 
 type Props = {
   type: "Sign Up" | "Login";
@@ -14,6 +14,9 @@ type Props = {
 };
 
 function AuthenticationForm({ type, fields, action }: Props) {
+  const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const renderInputType = (field: string) => {
     if (field.toLowerCase() === "email") {
       return "email";
@@ -24,9 +27,28 @@ function AuthenticationForm({ type, fields, action }: Props) {
     return "text";
   };
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+
+    const formData = new FormData(event.currentTarget);
+    try {
+      const result = await action(formData);
+      if (result?.err) {
+        throw result.err;
+      }
+    } catch (err: unknown) {
+      setError((err as Error).message || "Something went wrong");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <form className={styles.form} action={action}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <h2>{type}</h2>
+      {error && <p className={styles.errorMessage}>{error}</p>}
       {fields.map((field) => (
         <div key={field} className={styles.field}>
           <label htmlFor={field}>{field}:</label>
@@ -34,12 +56,17 @@ function AuthenticationForm({ type, fields, action }: Props) {
             id={field}
             name={field.toLowerCase()}
             type={renderInputType(field)}
+            disabled={isSubmitting}
           />
         </div>
       ))}
       <div className={styles.actionsHolder}>
-        <button type="submit" className={styles.submitButton}>
-          {type}
+        <button
+          type="submit"
+          className={styles.submitButton}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Submitting..." : type}
         </button>
         <Link href={type == "Login" ? "/register" : "/login"}>
           {type == "Login" ? "Sign Up" : "Login"}

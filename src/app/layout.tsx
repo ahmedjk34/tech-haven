@@ -5,6 +5,8 @@ import CartProvider from "@/components/CartProvider/CartProvider";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import UserModal from "@/components/UserModal/UserModal";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export const metadata: Metadata = {
   title: "Tech Haven - Your Ultimate PC Parts Destination",
@@ -18,20 +20,23 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+  console.log(session);
   return (
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <SessionProvider session={session}>
+      <Suspense fallback={<Loading />}>
         <CartProvider>
-          <body>
-            <Nav />
-            {children}
-            <UserModal />
-          </body>
+          <SessionProvider session={session}>
+            <body>
+              <Nav />
+              {children}
+              <UserModal />
+            </body>
+          </SessionProvider>
         </CartProvider>
-      </SessionProvider>
+      </Suspense>
     </html>
   );
 }

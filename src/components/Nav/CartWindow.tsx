@@ -31,7 +31,6 @@ function CartWindow({ active, toggleActivity, session }: Props) {
           `http://localhost:3000/api/user/${session?.user.id}/history`,
           { cart }
         );
-        console.log(cart);
         console.log("Checkout successful:", response.data);
       }
       clearCart(setCart);

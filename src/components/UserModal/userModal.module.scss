@@ -1,5 +1,15 @@
 @use "../../styles/variables" as v;
 @use "../../styles/mixins" as m;
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 .dialog {
   position: fixed;
   left: 0;
@@ -83,7 +93,9 @@
 
     .wishlistItem {
       @extend .itemBase;
-
+      &.fadeOut {
+        animation: fadeOut 1s forwards;
+      }
       & > div {
         width: 100%;
 

@@ -7,6 +7,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { formatPriceAfterDiscount } from "@/util/priceUtil";
 import { useSession } from "next-auth/react";
 import uuid4 from "uuid4";
+import axios from "axios";
 
 type Props = {};
 function UserModal({}: Props) {
@@ -16,6 +17,7 @@ function UserModal({}: Props) {
   const [section, setSection] = useState("Wishlist");
   const { data: session, update } = useSession();
   const [user, setUser] = useState(session?.user);
+  const [triggerFadeOutStyle, setTriggerFadeOutStyle] = useState(false);
   const handleCloseModal = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.delete("modal");
@@ -25,7 +27,21 @@ function UserModal({}: Props) {
     setUser(session?.user);
     console.log("UPDATED");
   }, [session]);
-
+  async function handleDeleteItem(itemId: string) {
+    setTriggerFadeOutStyle(true);
+    await axios.delete(
+      `http://localhost:3000/api/user/${user?.id}/wishlist/${itemId}`
+    );
+    await update({
+      ...session,
+      user: {
+        ...session?.user,
+        wishlist: session?.user?.wishlist.filter(
+          (wishlistItem) => wishlistItem._id !== itemId
+        ),
+      },
+    });
+  }
   const modal = searchParams.get("modal");
   return (
     <>
@@ -45,7 +61,12 @@ function UserModal({}: Props) {
               <div className={styles.wishlistSection}>
                 {user?.wishlist.map((item) => {
                   return (
-                    <div className={styles.wishlistItem} key={uuid4()}>
+                    <div
+                      className={`${styles.wishlistItem} ${
+                        triggerFadeOutStyle ? styles.fadeOut : ""
+                      }`}
+                      key={uuid4()}
+                    >
                       <img src={item.images[0]} alt={item.name} />
                       <div>
                         <h1>{item.name}</h1>
@@ -55,7 +76,13 @@ function UserModal({}: Props) {
                           >
                             Go to Item
                           </button>
-                          <button>Remove from wishlist</button>
+                          <button
+                            onClick={async () =>
+                              await handleDeleteItem(item._id)
+                            }
+                          >
+                            Remove from wishlist
+                          </button>
                           <h3 className={styles.price}>
                             {formatPriceAfterDiscount(
                               item.price,

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ItemType } from "@/util/Types";
 import { useCart } from "@/components/CartProvider/CartProvider";
 import { addItemToCart } from "@/util/cartActions";
@@ -12,10 +12,19 @@ type Props = {
 
 function ItemActionsHolder({ item }: Props) {
   const { cart, setCart } = useCart();
+  const { data: session, update } = useSession();
+
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
+  const [buttonText, setButtonText] = useState<string>(
+    `Add ${item.name} to cart +`
+  );
+
   const handleAddToCart = () => {
     addItemToCart(cart, setCart, item);
   };
-  const { data: session, update } = useSession();
+
   const handleAddToWishList = async () => {
     try {
       if (session?.user) {
@@ -45,10 +54,29 @@ function ItemActionsHolder({ item }: Props) {
     }
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    // Update button text based on the window width
+    if (windowWidth < 1300) {
+      setButtonText("Add to cart +");
+    } else {
+      setButtonText(`Add ${item.name} to cart +`);
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [windowWidth, item.name]);
+
   return (
     <div>
       <h3>{item.stock} Available in stock</h3>
-      <button onClick={handleAddToCart}>Add {item.name} to cart +</button>
+      <button onClick={handleAddToCart}>{buttonText}</button>
       {session?.user && (
         <div onClick={async () => await handleAddToWishList()}>
           Add to wishlist +

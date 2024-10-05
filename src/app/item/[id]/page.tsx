@@ -35,9 +35,7 @@ async function page({ params }: Props) {
               <ImageSlider images={item.images} />
               <div className={styles.titleAndStockHolder}>
                 <h1>{item.name}</h1>
-                <SessionProvider session={session}>
-                  <ItemActionsHolder item={item} />
-                </SessionProvider>
+                <ItemActionsHolder item={item} />
               </div>
               <div className={styles.mainInfo}>
                 <div className={styles.specificationTable}>

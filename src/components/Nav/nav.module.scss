@@ -165,16 +165,6 @@
       @extend .sharedButtonHoverStyle;
     }
 
-    .checkOut {
-      margin-top: 1rem;
-      background-color: v.$first-hover-color;
-      color: v.$text-color;
-      padding: 1rem;
-      font-family: v.$title-font;
-      border-radius: 1rem;
-      @extend .sharedButtonHoverStyle;
-    }
-
     .cartItemsHolder {
       display: flex;
       flex-direction: column;
@@ -221,6 +211,28 @@
         position: relative;
       }
     }
+    .checkOutSection {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      h3 {
+        font-family: v.$primary-font;
+        color: green;
+        margin-top: 1rem;
+      }
+      .checkOut {
+        margin-top: 1rem;
+        background-color: v.$first-hover-color;
+        color: v.$text-color;
+        padding: 1rem;
+        font-family: v.$title-font;
+        border-radius: 1rem;
+        text-align: center;
+        width: 40%;
+        @extend .sharedButtonHoverStyle;
+      }
+    }
   }
 }
 
@@ -229,5 +241,9 @@
     img {
       display: none;
     }
+  }
+  .cartWindow {
+    width: 100dvw;
+    max-width: 100dvw;
   }
 }

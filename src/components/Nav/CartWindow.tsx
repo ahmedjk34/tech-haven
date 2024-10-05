@@ -6,6 +6,7 @@ import { useCart } from "../CartProvider/CartProvider";
 import { ContextType } from "../../util/Types";
 import {
   calculateTotalPrice,
+  extractTotalPriceFromCart,
   formatPriceAfterDiscount,
 } from "@/util/priceUtil";
 import {
@@ -14,7 +15,6 @@ import {
   deleteItemFromCart,
 } from "@/util/cartActions";
 import { useSession } from "next-auth/react";
-import { Session } from "next-auth";
 
 type Props = {
   active: boolean;
@@ -122,11 +122,16 @@ function CartWindow({ active, toggleActivity }: Props) {
             <h1 className={styles.emptyCartMessage}>Your cart is empty.</h1>
           )}
         </div>
-        {cart.length ? (
-          <h2 onClick={handleCheckout} className={styles.checkOut}>
-            Checkout
-          </h2>
-        ) : null}
+        <div className={styles.checkOutSection}>
+          {cart.length ? (
+            <>
+              <h3>Total Price : {extractTotalPriceFromCart(cart)}$</h3>
+              <h2 onClick={handleCheckout} className={styles.checkOut}>
+                Checkout
+              </h2>
+            </>
+          ) : null}
+        </div>
       </div>
     </div>
   );

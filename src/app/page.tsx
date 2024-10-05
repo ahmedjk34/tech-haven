@@ -17,13 +17,14 @@ export default function Home() {
         <iframe
           src="https://player.vimeo.com/video/1013433471?autoplay=1&loop=1&autopause=0&muted=1&badge=0&title=0&sidedock=0&controls=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
           loading="lazy"
+          title="Background video"
           className={styles.backgroundVideo}
         />
       </div>
       <div className={styles.mainContent}>
         <div className={styles.informationSection}>
           <div className={styles.siteInfo}>
-            <h1>Teach Haven</h1>
+            <h1>Tech Haven</h1>
             <p>
               Tech Haven is your go-to online store for high-quality PC parts
               and accessories. Whether you're a gamer or a content creator, we

@@ -16,7 +16,7 @@ type Props = {
 async function page({ params }: Props) {
   try {
     const itemDataResponse = await axios.get(
-      `http://localhost:3000/api/item/${params.id}`
+      `https://tech-haven-k1h5z2nm8-ahmedjk34s-projects.vercel.app/api/item/${params.id}`
     );
 
     const {

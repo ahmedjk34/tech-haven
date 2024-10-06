@@ -29,7 +29,7 @@ function ItemActionsHolder({ item }: Props) {
     try {
       if (session?.user) {
         await axios.post(
-          `http://localhost:3000/api/user/${session.user.id}/wishlist/${item._id}`
+          `https://tech-haven-k1h5z2nm8-ahmedjk34s-projects.vercel.app/api/user/${session.user.id}/wishlist/${item._id}`
         );
         const itemExists = session.user.wishlist.some(
           (existingItem) => existingItem._id === item._id

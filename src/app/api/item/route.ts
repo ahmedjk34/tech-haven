@@ -1,4 +1,4 @@
-import connectDB from "@/lib/connectDB";
+import connectDB from "../page/connectDB";
 import itemModel from "@/models/itemModel";
 import { NextRequest, NextResponse } from "next/server";
 import { formatPriceAfterDiscount } from "@/util/priceUtil"; // Import the price calculation function

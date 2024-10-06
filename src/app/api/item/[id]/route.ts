@@ -1,4 +1,4 @@
-import connectDB from "@/lib/connectDB";
+import connectDB from "../../page/connectDB";
 import itemModel from "@/models/itemModel";
 import { NextResponse } from "next/server";
 

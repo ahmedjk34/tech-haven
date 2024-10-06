@@ -1,4 +1,4 @@
-import userModel from "@/models/userModel";
+import userModel from "@/app/models/userModel";
 import mongoose, { Mongoose } from "mongoose";
 import { NextResponse } from "next/server";
 

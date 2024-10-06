@@ -1,7 +1,7 @@
 "use server"; //important
 
 import connectDB from "@/app/api/page/connectDB";
-import userModel from "@/models/userModel";
+import userModel from "@/app/models/userModel";
 import { redirect } from "next/navigation";
 import { hash } from "bcryptjs";
 import { CredentialsSignin } from "next-auth";

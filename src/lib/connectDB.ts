@@ -18,4 +18,11 @@ async function connectDB() {
   }
 }
 
+export const config = {
+  unstable_allowDynamic: [
+    "/node_modules/@mongodb-js",
+    "/node_modules/@mongoose/dist/browser.umd.js",
+  ],
+};
+
 export default connectDB;

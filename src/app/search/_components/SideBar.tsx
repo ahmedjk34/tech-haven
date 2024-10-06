@@ -27,10 +27,8 @@ function SideBar({}: Props) {
   }>({});
   const [activeGroup, setActiveGroup] = useState<string | null>(null);
 
-  // Ref to store the debounce timer
   const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
-  // Debounced function to handle URL update
   const updatePriceParams = (min: number, max: number) => {
     const searchParams = new URLSearchParams(window.location.search);
     searchParams.set("minPrice", String(min));
@@ -39,7 +37,6 @@ function SideBar({}: Props) {
     router.push(`${window.location.pathname}?${searchParams.toString()}`);
   };
 
-  // Handle input with debounce
   const handleInput = (e: any) => {
     setMinValue(e.minValue);
     setMaxValue(e.maxValue);
@@ -50,10 +47,9 @@ function SideBar({}: Props) {
 
     debounceTimer.current = setTimeout(() => {
       updatePriceParams(e.minValue, e.maxValue);
-    }, 500); // Adjust the debounce delay as needed
+    }, 500);
   };
 
-  // Clear URL parameters and reset selectedItems on page load
   useEffect(() => {
     setSelectedItems({});
     const searchParams = new URLSearchParams(window.location.search);

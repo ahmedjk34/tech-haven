@@ -46,8 +46,9 @@ async function page({ params }: Props) {
                     </span>
                   </div>
                 </h1>
-
-                <ItemActionsHolder item={item} />
+                <SessionProvider session={session}>
+                  <ItemActionsHolder item={item} />
+                </SessionProvider>
               </div>
               <div className={styles.mainInfo}>
                 <div className={styles.specificationTable}>

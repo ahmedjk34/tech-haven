@@ -7,14 +7,17 @@ import { formatPriceAfterDiscount } from "@/util/priceUtil";
 import { useSession } from "next-auth/react";
 import uuid4 from "uuid4";
 import axios from "axios";
+import { Session } from "next-auth";
 
-type Props = {};
-function UserModal({}: Props) {
+type Props = {
+  session: Session | null;
+};
+function UserModal({ session }: Props) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
   const [section, setSection] = useState("Wishlist");
-  const { data: session, update } = useSession();
+  const { update } = useSession();
   const [user, setUser] = useState(session?.user);
   const [itemBeingRemoved, setItemBeingRemoved] = useState<string | null>(null);
 

@@ -20,22 +20,21 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
-  console.log(session);
   return (
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
       <Suspense fallback={<Loading />}>
-        <CartProvider>
-          <SessionProvider session={session}>
-            <body>
-              <Nav />
-              {children}
-              <UserModal />
-            </body>
-          </SessionProvider>
-        </CartProvider>
+        <body>
+          <CartProvider>
+            <Nav session={session} />
+            {children}
+            <SessionProvider session={session}>
+              <UserModal session={session} />
+            </SessionProvider>
+          </CartProvider>
+        </body>
       </Suspense>
     </html>
   );

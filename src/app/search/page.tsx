@@ -9,7 +9,7 @@ type Props = {
   searchParams?: { [key: string]: string | string[] | undefined };
 };
 
-function page({ params, searchParams }: Props) {
+function page({ searchParams }: Props) {
   return (
     <div className={styles.searchPage}>
       <CategorySelector />

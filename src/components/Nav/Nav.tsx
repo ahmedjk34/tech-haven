@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./nav.module.scss";
 import logo from "../../../public/logo.png";
 import Image from "next/image";
@@ -7,18 +7,23 @@ import { CgShoppingCart, CgProfile } from "react-icons/cg";
 import { usePathname, useRouter } from "next/navigation";
 import InputHolder from "./InputHolder";
 import CartWindow from "./CartWindow";
-import { SessionUser } from "@/util/Types";
+
+import { SessionProvider, getSession, useSession } from "next-auth/react";
 import { Session } from "next-auth";
-import { useSession } from "next-auth/react";
 
-type Props = {};
+type Props = {
+  session: Session | null;
+};
 
-function Nav({}: Props) {
+function Nav({ session }: Props) {
   const router = useRouter();
   const [isCartActive, setIsCartActive] = useState(false);
   const pathname = usePathname();
-  const { data: session } = useSession();
-  const user = session?.user as SessionUser | null;
+  const [user, setUser] = useState(session?.user);
+  useEffect(() => {
+    setUser(session?.user);
+    console.log("Nav Update", user);
+  }, [session]);
 
   const handleProfileClick = () => {
     if (user) {
@@ -49,7 +54,9 @@ function Nav({}: Props) {
           />
         </div>
       </div>
-      <CartWindow active={isCartActive} toggleActivity={setIsCartActive} />
+      <SessionProvider session={session}>
+        <CartWindow active={isCartActive} toggleActivity={setIsCartActive} />
+      </SessionProvider>
     </>
   );
 }

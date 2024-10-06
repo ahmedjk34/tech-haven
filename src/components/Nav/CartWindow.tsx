@@ -48,7 +48,7 @@ function CartWindow({ active, toggleActivity }: Props) {
             ],
           },
         });
-        console.log("Checkout successful:", response.data);
+        window.location.reload();
       }
       clearCart(setCart);
       toggleActivity(false);
@@ -56,7 +56,6 @@ function CartWindow({ active, toggleActivity }: Props) {
       console.error("Error during checkout:", error);
     }
   };
-  console.log(session?.user.purchaseHistory);
 
   return (
     <div className={`${styles.cartWindow} ${active ? styles.active : ""}`}>

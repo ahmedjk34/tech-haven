@@ -28,7 +28,7 @@ function CartWindow({ active, toggleActivity }: Props) {
     try {
       if (session?.user) {
         const response = await axios.post(
-          `https://tech-haven-k1h5z2nm8-ahmedjk34s-projects.vercel.app/api/user/${session?.user.id}/history`,
+          `https://tech-haven-ahmedjk34s-projects.vercel.app/api/user/${session?.user.id}/history`,
           { cart }
         );
         const purchaseHistory = cart.map((item) => ({

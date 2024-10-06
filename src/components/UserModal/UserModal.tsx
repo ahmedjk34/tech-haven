@@ -34,7 +34,7 @@ function UserModal({ session }: Props) {
   async function handleDeleteItem(itemId: string) {
     setItemBeingRemoved(itemId); // Set the item being removed
     await axios.delete(
-      `http://https://tech-haven-k1h5z2nm8-ahmedjk34s-projects.vercel.app/api/user/${user?.id}/wishlist/${itemId}`
+      `http://https://tech-haven-ahmedjk34s-projects.vercel.app/api/user/${user?.id}/wishlist/${itemId}`
     );
     await update({
       ...session,

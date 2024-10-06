@@ -38,7 +38,7 @@ function InputHolder({}: Props) {
         setLoading(true); // Start loading
         try {
           const response = await axios.get(
-            `https://tech-haven-k1h5z2nm8-ahmedjk34s-projects.vercel.app/api/item/name/${debouncedTerm}`
+            `https://tech-haven-ahmedjk34s-projects.vercel.app/api/item/name/${debouncedTerm}`
           );
           setItems(response.data); // Update items with API response
         } catch (error) {

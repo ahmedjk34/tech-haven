@@ -14,7 +14,7 @@ export async function ItemsHolder({
 }) {
   try {
     const response = await axios.get(
-      `https://tech-haven-k1h5z2nm8-ahmedjk34s-projects.vercel.app/api/item?category=${searchParams?.category}&subCategories=${searchParams?.subCategories}&brand=${searchParams?.brand}&minPrice=${searchParams?.minPrice}&maxPrice=${searchParams?.maxPrice}`
+      `https://tech-haven-ahmedjk34s-projects.vercel.app/api/item?category=${searchParams?.category}&subCategories=${searchParams?.subCategories}&brand=${searchParams?.brand}&minPrice=${searchParams?.minPrice}&maxPrice=${searchParams?.maxPrice}`
     );
     const items: ItemType[] = response.data;
 

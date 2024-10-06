@@ -15,11 +15,4 @@ async function connectDB() {
   connection.isConnected = db.connections[0].readyState;
 }
 
-export const config = {
-  unstable_allowDynamic: [
-    "/node_modules/@mongodb-js",
-    "/node_modules/@mongoose/dist/browser.umd.js",
-  ],
-};
-
 export default connectDB;

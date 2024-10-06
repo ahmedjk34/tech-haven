@@ -9,7 +9,6 @@ export async function GET(
   try {
     await connectDB();
 
-    // Search for the name as a substring, not just starting with the string
     const items = await itemModel
       .find({ name: { $regex: params.name, $options: "i" } }) // 'i' for case-insensitive
       .limit(3);

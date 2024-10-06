@@ -1,6 +1,6 @@
 "use server"; //important
 
-import connectDB from "@/lib/connectDB";
+import connectDB from "@/app/api/page/connectDB";
 import userModel from "@/models/userModel";
 import { redirect } from "next/navigation";
 import { hash } from "bcryptjs";

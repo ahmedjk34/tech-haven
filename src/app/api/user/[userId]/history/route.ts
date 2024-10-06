@@ -1,4 +1,4 @@
-import userModel from "@/app/models/userModel";
+import userModel from "@/models/userModel";
 import { ContextType } from "@/util/Types";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";

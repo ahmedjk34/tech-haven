@@ -1,5 +1,5 @@
-import connectDB from "../../page/connectDB";
-import itemModel from "@/app/api/models/itemModel";
+import connectDB from "../../../../lib/connectDB";
+import itemModel from "@/models/itemModel";
 import { NextResponse } from "next/server";
 
 export async function GET(

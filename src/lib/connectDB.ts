@@ -1,5 +1,9 @@
-let mongoose;
+"use server";
+import mongoose from "mongoose";
+
 const connectingURL = process.env.MONGO_CONNECTION_STRING; //from .env
+console.log(connectingURL);
+
 const connection: { isConnected?: number } = {};
 
 async function connectDB() {
@@ -7,15 +11,8 @@ async function connectDB() {
     return;
   }
 
-  if (typeof window === "undefined") {
-    mongoose = await import("mongoose");
-    const db = await mongoose.connect(connectingURL!);
-    connection.isConnected = db.connections[0].readyState;
-  } else {
-    console.warn(
-      "Attempted to connect to DB on client side. This should not happen."
-    );
-  }
+  const db = await mongoose.connect(connectingURL!);
+  connection.isConnected = db.connections[0].readyState;
 }
 
 export const config = {

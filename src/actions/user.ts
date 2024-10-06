@@ -35,7 +35,6 @@ const register = async (formData: FormData) => {
 
   await connectDB();
 
-  // existing user
   const existingUser = await userModel.findOne({ email });
   if (existingUser) throw new Error("User already exists");
 

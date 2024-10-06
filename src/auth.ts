@@ -76,7 +76,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   pages: {
-    //here we add those if we don't want to use the default auth.js pages
     signIn: "/login",
   },
 });

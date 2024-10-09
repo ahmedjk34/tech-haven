@@ -4,7 +4,7 @@ A PC parts e-commerce website where users can browse, compare, and purchase comp
 
 ## Tech Used
 
-- **Next.js** for client and server-side rendering, routing, and creating dynamic e-commerce pages.
+- **Next.js & Typescript** for client and server-side rendering, routing, and creating dynamic e-commerce pages.
 - **MongoDB & Mongoose** for managing product data and user information.
 - **SASS** for styling and ensuring a modern, responsive design.
 - **NextAuth** for managing user authentication and real-time updates.
